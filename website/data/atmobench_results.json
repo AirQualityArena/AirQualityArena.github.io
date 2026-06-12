@@ -1,0 +1,104 @@
+[
+  {
+    "model": "VisionTS++",
+    "category": "TSFM",
+    "mase_overall": 0.7785,
+    "crps_overall": 0.4537
+  },
+  {
+    "model": "TiRex",
+    "category": "TSFM",
+    "mase_overall": 0.7825,
+    "crps_overall": 0.4553
+  },
+  {
+    "model": "TimesFM-2.5",
+    "category": "TSFM",
+    "mase_overall": 0.7831,
+    "crps_overall": 0.4385
+  },
+  {
+    "model": "Moirai-2",
+    "category": "TSFM",
+    "mase_overall": 0.7916,
+    "crps_overall": 0.4421
+  },
+  {
+    "model": "Chronos-2",
+    "category": "TSFM",
+    "mase_overall": 0.7929,
+    "crps_overall": 0.4654
+  },
+  {
+    "model": "Chronos-Bolt",
+    "category": "TSFM",
+    "mase_overall": 0.7976,
+    "crps_overall": 0.4999
+  },
+  {
+    "model": "Sundial",
+    "category": "TSFM",
+    "mase_overall": 0.7977,
+    "crps_overall": 0.5728
+  },
+  {
+    "model": "TimesFM-2.0",
+    "category": "TSFM",
+    "mase_overall": 0.8013,
+    "crps_overall": 0.4807
+  },
+  {
+    "model": "Moirai-1",
+    "category": "TSFM",
+    "mase_overall": 0.8103,
+    "crps_overall": 0.4670
+  },
+  {
+    "model": "TimesFM-1.0",
+    "category": "TSFM",
+    "mase_overall": 0.8298,
+    "crps_overall": 0.5133
+  },
+  {
+    "model": "Kairos",
+    "category": "TSFM",
+    "mase_overall": 1.0121,
+    "crps_overall": 0.6426
+  },
+  {
+    "model": "PatchTST",
+    "category": "ML Baseline",
+    "mase_overall": 0.8300,
+    "crps_overall": 0.4625
+  },
+  {
+    "model": "AutoETS",
+    "category": "Statistical Baseline",
+    "mase_overall": 0.8949,
+    "crps_overall": 0.7878
+  },
+  {
+    "model": "DLinear",
+    "category": "ML Baseline",
+    "mase_overall": 0.8999,
+    "crps_overall": 0.5652
+  },
+  {
+    "model": "DeepAR",
+    "category": "ML Baseline",
+    "mase_overall": 0.9091,
+    "crps_overall": 0.4911
+  },
+  {
+    "model": "LightGBM",
+    "category": "ML Baseline",
+    "mase_overall": 0.9268,
+    "crps_overall": 0.5765
+  },
+  {
+    "model": "Seasonal Naive",
+    "category": "Statistical Baseline",
+    "mase_overall": 1.0000,
+    "crps_overall": 1.0000
+  }
+]

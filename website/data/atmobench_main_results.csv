@@ -1,0 +1,18 @@
+model,category,mase_overall,crps_overall
+VisionTS++,TSFM,0.7785,0.4537
+TiRex,TSFM,0.7825,0.4553
+TimesFM-2.5,TSFM,0.7831,0.4385
+Moirai-2,TSFM,0.7916,0.4421
+Chronos-2,TSFM,0.7929,0.4654
+Chronos-Bolt,TSFM,0.7976,0.4999
+Sundial,TSFM,0.7977,0.5728
+TimesFM-2.0,TSFM,0.8013,0.4807
+Moirai-1,TSFM,0.8103,0.4670
+TimesFM-1.0,TSFM,0.8298,0.5133
+Kairos,TSFM,1.0121,0.6426
+PatchTST,ML Baseline,0.8300,0.4625
+AutoETS,Statistical Baseline,0.8949,0.7878
+DLinear,ML Baseline,0.8999,0.5652
+DeepAR,ML Baseline,0.9091,0.4911
+LightGBM,ML Baseline,0.9268,0.5765
+Seasonal Naive,Statistical Baseline,1.0000,1.0000

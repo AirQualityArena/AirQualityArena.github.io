@@ -219,7 +219,7 @@
                         alt="Figure 1. Overview of Atmobench." 
                         style="width: 100%; max-width: 1100px; height: auto; display: block; margin: 0 auto 1rem auto; object-fit: contain; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);"/>
                     <figcaption class="figure-caption" style="font-style: normal; font-size: 1.1em; color: rgb(50, 50, 50);">
-                        <b>Figure 1.</b> Overview of <span class="atmobench">AQA-Bench</span>
+                        <b>Figure 1. </b> Overview of <span class="atmobench">AQA-Bench</span>
                     </figcaption>
                 </figure>
             </div>
@@ -347,9 +347,22 @@
                     </table>
                 </div>
             </div>
-            <p style="text-align: center; color: #666; font-style: italic; margin-top: 0.75rem; font-size: 0.95em;">
-                Number of monitoring sites per pollutant and dataset in AtmoBench.
+            <p style="text-align: center; color: #666; font-style: italic; margin-top: 0.75rem; font-size: 0.95em; margin-bottom: 4rem;">
+                <b>Table 1. </b>Number of monitoring sites per pollutant and dataset in AQA-Bench.
             </p>
+
+            <div class="container" style="max-width: 90%; margin: 0 auto; display: flex; justify-content: center;">
+                <figure class="table-figure" style="text-align: center; width: 100%;">
+                    <img class="figure-image" 
+                        src="website/img/Site_distribution_plot.png" 
+                        alt="Figure 2. Geographical distribution of monitoring sites in AtmoBench." 
+                        style="width: 100%; max-width: 1100px; height: auto; display: block; margin: 0 auto 1rem auto; object-fit: contain; border-radius: 8px; border: 1px solid #e0e0e0; box-shadow: 0 4px 12px rgba(0,0,0,0.05);"/>
+                    <figcaption class="figure-caption" style="font-style: normal; font-size: 1.05em; color: rgb(50, 50, 50);">
+                        <b>Figure 2.</b> Geographical distribution of monitoring sites in AQA-Bench dataset.
+                    </figcaption>
+                </figure>
+            </div>
+
         </div>
     </section>
 
@@ -381,60 +394,66 @@
                 </p>
             </div>
         </div>
-        
         <div class="container" style="margin: 2rem auto 0 auto; display: flex; justify-content: center;">
             <div style="border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow: hidden; display: inline-block;">
                 <div id="atmobench-main-table"></div>
             </div>
-        </div> <div class="container" style="max-width: 80%; margin: 3rem auto 0 auto;">
-            <h3 class="title is-4" style="text-align:center; margin-bottom: 1.5rem; font-size: 1.6em; color: #1e4e52;">Per Dataset MASE Results</h3>
-            <p style="text-align:center; color:rgb(31, 30, 30); margin-bottom: 1.5rem; font-size: 1.1em;">
-                Normalized MASE scores disaggregated by 7 countries across all pollutants.
-            </p>
-        </div>
+        </div> 
+        <p style="text-align: center; color: #666; font-style: italic; margin-top: 0.75rem; font-size: 0.95em; margin-bottom: 4rem;">
+            <b>Table 2. </b>Overall results across all countries and all pollutants.
+        </p>
         
+        <!-- Per Dataset MASE Results -->
+        <div class="container" style="max-width: 80%; margin: 3rem auto 0 auto;">
+            <h3 class="title is-4" style="text-align:center; margin-bottom: 1.5rem; font-size: 1.6em; color: #1e4e52;">Per Dataset MASE Results</h3>
+        </div>
         <div class="container" style="margin: 0 auto 2rem auto; display: flex; justify-content: center;">
             <div style="border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow: hidden; display: inline-block;">
                 <div id="atmobench-dataset-table-mase"></div>
             </div>
         </div>
+        <p style="text-align: center; color: #666; font-style: italic; margin-top: 0.75rem; font-size: 0.95em; margin-bottom: 4rem;">
+            <b> Table 3. </b>Normalized MASE scores disaggregated by 7 countries across all pollutants.
+        </p>
 
+        <!-- Per Pollutant MASE Results -->
         <div class="container" style="max-width: 80%; margin: 4rem auto 0 auto;">
             <h3 class="title is-4" style="text-align:center; margin-bottom: 1.5rem; font-size: 1.6em; color: #1e4e52;">Per Pollutant MASE Results</h3>
-            <p style="text-align:center; color:rgb(31, 30, 30); margin-bottom: 1.5rem; font-size: 1.1em;">
-                Normalized MASE scores disaggregated by 6 major atmospheric pollutant profiles across all datasets.
-            </p>
         </div>
-        
         <div class="container" style="margin: 0 auto 3rem auto; display: flex; justify-content: center;">
             <div style="border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow: hidden; display: inline-block;">
                 <div id="atmobench-pollutant-table-mase"></div>
             </div>
         </div>
+        <p style="text-align: center; color: #666; font-style: italic; margin-top: 0.75rem; font-size: 0.95em; margin-bottom: 4rem;">
+            <b>Table 4. </b>Normalized MASE scores disaggregated by 6 major atmospheric pollutant profiles across all datasets.
+        </p>
 
+        <!-- Per Dataset CRPS Results -->
         <div class="container" style="max-width: 80%; margin: 4rem auto 0 auto;">
             <h3 class="title is-4" style="text-align:center; margin-bottom: 1.5rem; font-size: 1.6em; color: #1e4e52;">Per Dataset CRPS Results</h3>
-            <p style="text-align:center; color:rgb(31, 30, 30); margin-bottom: 1.5rem; font-size: 1.1em;">
-                Normalized CRPS scores disaggregated by 7 countries across all pollutants.
-            </p>
         </div>
         <div class="container" style="margin: 0 auto 3rem auto; display: flex; justify-content: center;">
             <div style="border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow: hidden; display: inline-block;">
                 <div id="atmobench-dataset-table-crps"></div>
             </div>
         </div>
+        <p style="text-align: center; color: #666; font-style: italic; margin-top: 0.75rem; font-size: 0.95em; margin-bottom: 4rem;">
+            <b>Table 5. </b>Normalized CRPS scores disaggregated by 7 countries across all pollutants.
+        </p>
 
+        <!-- Per Pollutant CRPS Results -->
         <div class="container" style="max-width: 80%; margin: 4rem auto 0 auto;">
             <h3 class="title is-4" style="text-align:center; margin-bottom: 1.5rem; font-size: 1.6em; color: #1e4e52;">Per Pollutant CRPS Results</h3>
-            <p style="text-align:center; color:rgb(31, 30, 30); margin-bottom: 1.5rem; font-size: 1.1em;">
-                Normalized CRPS scores disaggregated by 6 major atmospheric pollutant profiles across all datasets.
-            </p>
         </div>
         <div class="container" style="margin: 0 auto 3rem auto; display: flex; justify-content: center;">
             <div style="border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow: hidden; display: inline-block;">
                 <div id="atmobench-pollutant-table-crps"></div>
             </div>
         </div>
+        <p style="text-align: center; color: #666; font-style: italic; margin-top: 0.75rem; font-size: 0.95em; margin-bottom: 4rem;">
+            <b>Table 6. </b>Normalized CRPS scores disaggregated by 6 major atmospheric pollutant profiles across all datasets.
+        </p>
     </section>
 
     <section class="section" id="key-findings" style="padding-top:1.5rem;">

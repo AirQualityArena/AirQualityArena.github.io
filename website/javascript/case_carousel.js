@@ -1,38 +1,38 @@
-// AtmoBench Evaluation Plots Carousel functionality
+// Air Quality Arena (AQA) Evaluation Plots Carousel functionality
 
 document.addEventListener('DOMContentLoaded', function() {
     // Array holding the metadata and paths for your evaluation plots
     const evaluationPlots = [
         { 
-            name: "AURN Error Distribution", 
+            name: "AQA-Data: AURN Error Distribution (MASE Grid)", 
             file: "aurn_error_mase",
             ext: "png"  
         },
         { 
-            name: "AURN Error Distribution Boxplot Breakdown", 
+            name: "AQA-Data: AURN Error Distribution Boxplot Breakdown", 
             file: "aurn_error_mase_box",
             ext: "png"
         },
+        { 
+            name: "AQA-Bench: CPCB PM2.5 Imputation Analysis Heatmap", 
+            file: "cpcb_pm_heatmap",
+            ext: "jpeg"
+        }
         // { 
-        //     name: "AURN Mean MASE Intersection Matrix", 
-        //     file: "aurn_mean_mase_pollutant_dataset",
-        //     ext: "png"
-        // },
-        // { 
-        //     name: "Normalized MASE Performance across Datasets", 
+        //     name: "AQA-Bench: Normalized MASE Performance across Datasets", 
         //     file: "Normalized_mase_dataset_model",
         //     ext: "png"
         // },
         // { 
-        //     name: "Normalized MASE Performance across Pollutants", 
+        //     name: "AQA-Bench: Normalized MASE Performance across Pollutants", 
         //     file: "Normalized_mase_pollutant_model",
         //     ext: "png"
         // },
-        { 
-            name: "CPCB PM2.5 Imputation Analysis Heatmap", 
-            file: "cpcb_pm_heatmap",
-            ext: "jpeg"
-        }
+        // { 
+        //     name: "AQA-Data: AURN Mean MASE Intersection Matrix", 
+        //     file: "aurn_mean_mase_pollutant_dataset",
+        //     ext: "png"
+        // }
     ];
 
     // Initialize the main plots carousel

@@ -2,245 +2,120 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>AQA-Bench: A Large-Scale Multi-Region Benchmark for Air Quality Forecasting</title>
-
+    <title>Air Quality Arena: A Unified Platform for Ground Monitoring Data, Analytics, Benchmarking, and Foundation Models</title>
     <link rel="icon" href="website/img/statistics.png" type="image/png">
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
-
     <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
     <link rel="stylesheet" href="website/css/bulma.min.css">
     <link rel="stylesheet" href="website/css/bulma-carousel.min.css">
     <link rel="stylesheet" href="website/css/bulma-slider.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
     <link rel="stylesheet" href="website/css/fontawesome.all.min.css">
-
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="./website/javascript/bulma-carousel.min.js"></script>
     <script src="./website/javascript/bulma-slider.min.js"></script>
     <script src="./website/javascript/explorer-index.js"></script>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator_bootstrap4.min.css" rel="stylesheet">
     <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
     <script defer src="website/javascript/fontawesome.all.min.js"></script>
 
     <script src="website/javascript/benchmark_table.js" type="module"></script>
     <script src="website/javascript/benchmark_table_low_level.js" type="module"></script>
-    <script src="website/javascript/atmobench_table.js" type="module"></script>
-    <script src="website/javascript/case_carousel.js"></script>
+    <script src="website/javascript/aqa_table.js" type="module"></script> <script src="website/javascript/case_carousel.js"></script>
 
     <link rel="stylesheet" href="website/css/index.css">
 
-    <script type="text/javascript" async
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
-    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
     <script type="text/javascript">
-        MathJax.Hub.Config({
-            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
-        });
+        MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]} });
     </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-        var toggles = document.querySelectorAll('.toggle-section');
-        toggles.forEach(function(toggle) {
-            toggle.addEventListener('click', function() {
-            var content = document.getElementById(toggle.getAttribute('aria-controls'));
-            var toggleIcon = toggle.children[1].children[0];
-            content.classList.toggle('is-active');
-            if (content.classList.contains('is-active')) {
-                toggleIcon.style.transition = 'transform 0.3s ease';
-                toggleIcon.style.transform = 'rotate(180deg)';
-            } else {
-                toggleIcon.style.transition = 'transform 0.3s ease';
-                toggleIcon.style.transform = 'rotate(0deg)';
-            }
-            });
-        });
-        });
-    </script>
-
+    
     <style>
-        .atmobench {
+        .aqa-brand {
             font-variant: small-caps !important;
             font-weight: bold !important;
-            color: #1e4e52 !important; /* Premium atmospheric teal theme */
+            color: #1e4e52 !important;
         }
-        .collapse-content {
-            display: none;
-            margin-top: 10px;
-        }
-        .collapse-content.is-active {
-            display: block;
-        }
+        .collapse-content { display: none; margin-top: 10px; }
+        .collapse-content.is-active { display: block; }
         .tabulator .tabulator-header .tabulator-col .tabulator-col-content .tabulator-col-title {
-            white-space: nowrap !important;
-            overflow: visible !important;
-            text-overflow: clip !important;
+            white-space: nowrap !important; overflow: visible !important; text-overflow: clip !important;
         }
-        .case-carousel {
-            user-select: none;
-        }
-        .case-image {
-            max-width: 100%;
-            max-height: 600px;
-            height: auto;
-            border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        .case-carousel button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        .case-carousel button:not(:disabled):hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-            transition: all 0.2s ease;
-        }
-        .figure-caption {
-            font-size: 1rem;
-        }
+        .case-carousel { user-select: none; }
+        .case-image { max-width: 100%; max-height: 600px; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .case-carousel button:disabled { opacity: 0.5; cursor: not-allowed; }
+        .case-carousel button:not(:disabled):hover { opacity: 0.9; transform: translateY(-2px); transition: all 0.2s ease; }
+        .figure-caption { font-size: 1rem; }
     </style>
 </head>
 
 <body>
     <section class="hero">
         <div class="hero-body">
-        <div class="container is-max-desktop">
-            <div class="columns is-centered">
-            <div class="column has-text-centered">
-
-            <h1 class="title is-1 publication-title is-bold">
-                <img src="website/img/statistics.png"
-                    alt="logo"
-                    style="vertical-align: middle; margin-right: 20px; position: relative; top: -15px; left: 30px"
-                    width="80"
-                    height="80" />
-                <span class="atmobench" style="vertical-align: middle">AQA-Bench</span>
-            </h1>
-
-            <h2 class="title is-1 publication-title is-bold" style="margin-top:-0.7em; margin-right: 30px; margin-left: 30px;">
-                A Large-Scale Multi-Region Benchmark for Air Quality Forecasting with Time Series Foundation Models
-            </h2>
-
-            <div class="is-size-5 publication-authors">
-                <span class="author-block">
-                <a href="https://www.linkedin.com/in/rishi-bharadwaj-7a6212310/">Rishi Bharadwaj</a><sup>1</sup>,
-                </span>
-                <span class="author-block">
-                <a href="https://www.bits-pilani.ac.in/hyderabad/manik-gupta/">Manik Gupta</a><sup>1</sup>,
-                </span>
-                <span class="author-block">
-                <a href="https://www.samy101.com/">Pandarasamy Arjunan</a><sup>2</sup>
-                </span>
-            </div>
-            
-            <div class="is-size-5 publication-authors" style="margin-top:1em;">
-                <span class="author-block"><sup>1</sup>BITS Pilani, Hyderabad Campus, India</span><br>
-                <span class="author-block"><sup>2</sup>Indian Institute of Science, Bengaluru, India</span>
-            </div>
-
-            <div class="column has-text-centered" style="margin-top:1.5em;">
-                <span class="link-block">
-                    <a href="#" class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
-                        <i class="ai ai-arxiv"></i>
-                    </span>
-                    <span>Paper</span>
-                    </a>&nbsp;&nbsp;
-                </span>
-                <span class="link-block">
-                    <a href="https://anonymous.4open.science/r/AtmoBench-B8E7" class="external-link button is-normal is-rounded is-dark" role="button" target="_blank">
-                    <span class="icon">
-                        <i class="fab fa-github"></i>
-                    </span>
-                    <span>Code</span>
-                    </a> &nbsp;&nbsp;
-                </span>
-                <span class="link-block">
-                    <a href="https://zenodo.org/records/19643640"
-                    class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon" style="display: flex; align-items: center; height: 100%;">
-                        <p style="font-size:18px; margin: 0;">&#129303;</p>
-                    </span>
-                    <span>Dataset</span>
-                    </a>
-                </span>
-            </div>
-
+            <div class="container is-max-desktop">
+                <div class="columns is-centered">
+                    <div class="column has-text-centered">
+                        <h1 class="title is-1 publication-title is-bold" style="margin-bottom: 1.5rem;">
+                            <img src="website/img/statistics.png" alt="logo" style="vertical-align: middle; margin-right: 15px; position: relative; top: -5px;" width="70" height="70" />
+                            <span class="aqa-brand" style="vertical-align: middle">Air Quality Arena</span>
+                        </h1>
+                        <h2 class="subtitle is-3 publication-subtitle" style="color: #4a4a4a; font-weight: 500; margin-top: 0rem; padding: 0 20px; line-height: 1.3;">
+                            A Unified Platform for Ground Monitoring Data, Analytics, Benchmarking, and Foundation Models
+                        </h2>
+                        <div class="is-size-5 publication-authors">
+                            <span class="author-block"><a href="https://www.linkedin.com/in/rishi-bharadwaj-7a6212310/">Rishi Bharadwaj</a><sup>1</sup>,</span>
+                            <span class="author-block"><a href="https://www.bits-pilani.ac.in/hyderabad/manik-gupta/">Manik Gupta</a><sup>1</sup>,</span>
+                            <span class="author-block"><a href="https://www.samy101.com/">Pandarasamy Arjunan</a><sup>2</sup></span>
+                        </div>
+                        <div class="is-size-5 publication-authors" style="margin-top:0.5em;">
+                            <span class="author-block"><sup>1</sup>BITS Pilani, Hyderabad Campus, India</span><br>
+                            <span class="author-block"><sup>2</sup>Indian Institute of Science, Bengaluru, India</span>
+                        </div>
+                        <div class="column has-text-centered" style="margin-top:1.5em;">
+                            <span class="link-block"><a href="#" class="external-link button is-normal is-rounded is-dark"><span class="icon"><i class="ai ai-arxiv"></i></span><span>Paper</span></a>&nbsp;&nbsp;</span>
+                            <span class="link-block"><a href="https://github.com/air-quality-arena" class="external-link button is-normal is-rounded is-dark" role="button" target="_blank"><span class="icon"><i class="fab fa-github"></i></span><span>Code</span></a> &nbsp;&nbsp;</span>
+                            <span class="link-block"><a href="https://zenodo.org/records/19643640" class="external-link button is-normal is-rounded is-dark"><span class="icon" style="display: flex; align-items: center; height: 100%;"><p style="font-size:18px; margin: 0;">&#129303;</p></span><span>Dataset</span></a></span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        </div>
-    </div>
     </section>
 
     <section class="section" id="overview" style="padding-top:1.5rem;">
         <div class="container" style="max-width: 80%; margin: 0 auto;">
-        <h2 class="title is-3" style="text-align:center; margin-bottom:1rem; font-size: 2.3em;">Overview</h2>
-        <br>
-        <div class="content has-text-justified" style="max-width: 95%; font-size: 1.2em; margin: 0 auto; line-height: 1.55;">
-            <p style="text-align:justify; color:rgb(31, 30, 30);">
-            Air pollution causes an estimated 7.9 million premature deaths annually, making accurate forecasting a critical public health priority. Machine learning is increasingly being applied to forecast air pollution levels, yet existing benchmarks remain narrow in both geographic scope and pollutant coverage, and fail to evaluate the latest generation of time series foundation models (TSFMs) on real-world, large-scale data.
-            </p>
-            <p style="text-align:justify; color:rgb(31, 30, 30);">
-            To bridge this gap, we introduce <b><span class="atmobench">AQA-Bench</span></b>, a large-scale multi-country and multi-pollutant dataset and benchmark. <span class="atmobench">AQA-Bench</span> covers <b>6 major pollutants</b> (PM<sub>2.5</sub>, PM<sub>10</sub>, NO<sub>2</sub>, SO<sub>2</sub>, CO, and O<sub>3</sub>) over a three-year period (July 2022 - June 2025) across <b>7 diverse countries and 4 continents</b>, compiling more than <b>14,000 station-pollutant series</b>.
-            </p>
-            <p style="text-align:justify; color:rgb(31, 30, 30);">
-            We benchmark this dataset across <b>11 leading time series foundation models</b> and <b>6 classical baselines</b> to evaluate performance on short-term air quality forecasting. Our framework directly tests whether pretrained zero-shot foundation models can successfully compete with localized models optimized specifically on target stream metrics.
-            </p>
-        </div>
-        <!-- <div class="columns is-centered">
-            <div class="column is-11-desktop is-12-mobile">
-                <figure class="table-figure" style="text-align: center; margin: 1.5rem 0 2.5rem 0;">
-                    <img class="figure-image" 
-                        src="website/img/overview.jpg" 
-                        alt="Figure 1. Overview of Atmobench." 
-                        style="width: 100%; max-width: 1100px; height: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 1rem;"/>
-                    <figcaption class="figure-caption" style="font-style: normal; font-size: 1.1em; color: rgb(50, 50, 50);">
-                        <b>Figure 1.</b> Overview of <span class="atmobench">AtmoBench</span>
-                    </figcaption>
-                </figure>
+            <h2 class="title is-3" style="text-align:center; margin-bottom:1rem; font-size: 2.3em;">Overview</h2>
+            <br>
+            <div class="content has-text-justified" style="max-width: 95%; font-size: 1.2em; margin: 0 auto; line-height: 1.55;">
+                <p>Air pollution causes an estimated 7.9 million premature deaths annually, making forecasting a critical public health priority. We introduce the <b>Air Quality Arena (AQA)</b> platform, incorporating the large-scale <b>AQA-Data</b> repository and the standard <b>AQA-Bench</b> framework.</p>
             </div>
-        </div> -->
-        <div class="columns is-centered">
-            <div class="column is-11-desktop is-12-mobile">
-                <figure class="table-figure" style="text-align: center; margin: 1.5rem 0 2.5rem 0;">
-                    <img class="figure-image" 
-                        src="website/img/overview.svg" 
-                        alt="Figure 1. Overview of Atmobench." 
-                        style="width: 100%; max-width: 1100px; height: auto; display: block; margin: 0 auto 1rem auto; object-fit: contain; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);"/>
-                    <figcaption class="figure-caption" style="font-style: normal; font-size: 1.1em; color: rgb(50, 50, 50);">
-                        <b>Figure 1. </b> Overview of <span class="atmobench">AQA-Bench</span>
-                    </figcaption>
-                </figure>
+            <div class="columns is-centered">
+                <div class="column is-11-desktop is-12-mobile">
+                    <figure class="table-figure" style="text-align: center; margin: 1.5rem 0 2.5rem 0;">
+                        <img class="figure-image" src="website/img/overview.svg" alt="Overview of Air Quality Arena Platform Architecture." style="width: 100%; max-width: 1100px; height: auto; display: block; margin: 0 auto 1rem auto; object-fit: contain; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);"/>
+                        <figcaption class="figure-caption" style="font-style: normal; font-size: 1.1em; color: rgb(50, 50, 50);"><b>Figure 1. </b> Overview of the integrated <span class="aqa-brand">Air Quality Arena</span> platform layers.</figcaption>
+                    </figure>
+                </div>
             </div>
-        </div>
         </div>
     </section>
 
-    <section class="section" id="dataset-design" style="padding-top:1.5rem;">
+    <section class="section" id="aqa-data" style="padding-top:1.5rem; background-color: #ffffff;">
         <div class="container" style="max-width: 80%; margin: 0 auto;">
-            <h2 class="title is-3" style="text-align:center; margin-bottom: 2.5rem; font-size: 2.3em;">Dataset Curation</h2>
-            
+            <h2 class="title is-3" style="text-align:center; margin-bottom: 2.5rem; font-size: 2.3em; color: #1e4e52;">AQA-Data Repository</h2>
             <div class="content has-text-justified" style="max-width: 95%; font-size: 1.2em; margin: 0 auto; line-height: 1.55;">
-                <div style="margin-left: 1em;">
-                    <p style="text-align:justify; color:rgb(31, 30, 30); margin-bottom: 1em;">
-                        <b>Real-World Datasets:</b> Raw granular observations were curated directly from 6 primary regulatory networks: EPA (US), CPCB (India), AURN (UK), CNEMC (China), EEA (France/Germany), and SINAICA (Mexico).
-                    </p>
-                </div>
+                <p><b>Real-World Datasets Curation:</b> Raw granular observations are curated directly from 6 primary regulatory networks: EPA (US), CPCB (India), AURN (UK), CNEMC (China), EEA (France/Germany), and SINAICA (Mexico).</p>
             </div>
-
-            <div class="container" style="max-width: 90%; margin: 1.5rem auto 0 auto; display: flex; justify-content: center;">
-                <div style="border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow: hidden; width: 100%;">
+            <div class="container" style="max-width: 95%; margin: 1.5rem auto 0 auto; display: flex; justify-content: center;">
+                <div style="border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow: hidden; width: 100%; background-color: white;">
                     <table class="table is-striped is-hoverable is-fullwidth" style="margin-bottom: 0; font-size: 1.05em;">
                         <thead style="background-color: #1e4e52;">
                             <tr>
@@ -256,130 +131,38 @@
                             </tr>
                         </thead>
                         <tbody style="font-weight: 500;">
-                            <tr>
-                                <td style="text-align: left; padding: 10px 16px; font-weight: bold;">EPA (US)</td>
-                                <td style="text-align: center; padding: 10px 16px;">90</td>
-                                <td style="text-align: center; padding: 10px 16px;">212</td>
-                                <td style="text-align: center; padding: 10px 16px;">488</td>
-                                <td style="text-align: center; padding: 10px 16px;">220</td>
-                                <td style="text-align: center; padding: 10px 16px;">445</td>
-                                <td style="text-align: center; padding: 10px 16px;">212</td>
-                                <td style="text-align: center; padding: 10px 16px; font-weight: bold; background-color: #fafafa;">1,667</td>
-                                <td style="text-align: center; padding: 10px 16px; font-weight: bold; background-color: #fafafa;">1,011</td>
-                            </tr>
-                            <tr>
-                                <td style="text-align: left; padding: 10px 16px; font-weight: bold;">AURN (UK)</td>
-                                <td style="text-align: center; padding: 10px 16px;">1</td>
-                                <td style="text-align: center; padding: 10px 16px;">70</td>
-                                <td style="text-align: center; padding: 10px 16px;">39</td>
-                                <td style="text-align: center; padding: 10px 16px;">80</td>
-                                <td style="text-align: center; padding: 10px 16px;">61</td>
-                                <td style="text-align: center; padding: 10px 16px;">8</td>
-                                <td style="text-align: center; padding: 10px 16px; font-weight: bold; background-color: #fafafa;">259</td>
-                                <td style="text-align: center; padding: 10px 16px; font-weight: bold; background-color: #fafafa;">113</td>
-                            </tr>
-                            <tr>
-                                <td style="text-align: left; padding: 10px 16px; font-weight: bold;">CPCB (India)</td>
-                                <td style="text-align: center; padding: 10px 16px;">179</td>
-                                <td style="text-align: center; padding: 10px 16px;">179</td>
-                                <td style="text-align: center; padding: 10px 16px;">182</td>
-                                <td style="text-align: center; padding: 10px 16px;">191</td>
-                                <td style="text-align: center; padding: 10px 16px;">190</td>
-                                <td style="text-align: center; padding: 10px 16px;">183</td>
-                                <td style="text-align: center; padding: 10px 16px; font-weight: bold; background-color: #fafafa;">1,104</td>
-                                <td style="text-align: center; padding: 10px 16px; font-weight: bold; background-color: #fafafa;">211</td>
-                            </tr>
-                            <tr>
-                                <td style="text-align: left; padding: 10px 16px; font-weight: bold;">CNEMC (China)</td>
-                                <td style="text-align: center; padding: 10px 16px;">1487</td>
-                                <td style="text-align: center; padding: 10px 16px;">1481</td>
-                                <td style="text-align: center; padding: 10px 16px;">1488</td>
-                                <td style="text-align: center; padding: 10px 16px;">1481</td>
-                                <td style="text-align: center; padding: 10px 16px;">1471</td>
-                                <td style="text-align: center; padding: 10px 16px;">1485</td>
-                                <td style="text-align: center; padding: 10px 16px; font-weight: bold; background-color: #fafafa;">8,893</td>
-                                <td style="text-align: center; padding: 10px 16px; font-weight: bold; background-color: #fafafa;">1,491</td>
-                            </tr>
-                            <tr>
-                                <td style="text-align: left; padding: 10px 16px; font-weight: bold;">EEA-FR (France)</td>
-                                <td style="text-align: center; padding: 10px 16px;">5</td>
-                                <td style="text-align: center; padding: 10px 16px;">219</td>
-                                <td style="text-align: center; padding: 10px 16px;">211</td>
-                                <td style="text-align: center; padding: 10px 16px;">204</td>
-                                <td style="text-align: center; padding: 10px 16px;">131</td>
-                                <td style="text-align: center; padding: 10px 16px;">37</td>
-                                <td style="text-align: center; padding: 10px 16px; font-weight: bold; background-color: #fafafa;">807</td>
-                                <td style="text-align: center; padding: 10px 16px; font-weight: bold; background-color: #fafafa;">380</td>
-                            </tr>
-                            <tr>
-                                <td style="text-align: left; padding: 10px 16px; font-weight: bold;">EEA-DE (Germany)</td>
-                                <td style="text-align: center; padding: 10px 16px;">65</td>
-                                <td style="text-align: center; padding: 10px 16px;">370</td>
-                                <td style="text-align: center; padding: 10px 16px;">262</td>
-                                <td style="text-align: center; padding: 10px 16px;">316</td>
-                                <td style="text-align: center; padding: 10px 16px;">246</td>
-                                <td style="text-align: center; padding: 10px 16px;">75</td>
-                                <td style="text-align: center; padding: 10px 16px; font-weight: bold; background-color: #fafafa;">1,334</td>
-                                <td style="text-align: center; padding: 10px 16px; font-weight: bold; background-color: #fafafa;">405</td>
-                            </tr>
-                            <tr>
-                                <td style="text-align: left; padding: 10px 16px; font-weight: bold;">SINAICA (Mexico)</td>
-                                <td style="text-align: center; padding: 10px 16px;">12</td>
-                                <td style="text-align: center; padding: 10px 16px;">11</td>
-                                <td style="text-align: center; padding: 10px 16px;">15</td>
-                                <td style="text-align: center; padding: 10px 16px;">16</td>
-                                <td style="text-align: center; padding: 10px 16px;">6</td>
-                                <td style="text-align: center; padding: 10px 16px;">15</td>
-                                <td style="text-align: center; padding: 10px 16px; font-weight: bold; background-color: #fafafa;">75</td>
-                                <td style="text-align: center; padding: 10px 16px; font-weight: bold; background-color: #fafafa;">24</td>
-                            </tr>
-                            <tr style="background-color: #f5f5f5; border-top: 2px solid #e0e0e0;">
-                                <td colspan="9" style="text-align: center; padding: 12px 16px; font-weight: bold; font-size: 1.1em; color: #1e4e52;">
-                                    Total Monitoring Pollutant Time Series: 14,139
-                                </td>
-                            </tr>
-                            <tr style="background-color: #f5f5f5; border-top: 2px solid #e0e0e0;">
-                                <td colspan="9" style="text-align: center; padding: 12px 16px; font-weight: bold; font-size: 1.1em; color: #1e4e52;">
-                                    Total Monitoring Sites: 3,635
-                                </td>
-                            </tr>
+                            <tr><td style="text-align: left; padding: 10px 16px; font-weight: bold;">EPA (US)</td><td style="text-align: center; padding: 10px 16px;">90</td><td style="text-align: center; padding: 10px 16px;">212</td><td style="text-align: center; padding: 10px 16px;">488</td><td style="text-align: center; padding: 10px 16px;">220</td><td style="text-align: center; padding: 10px 16px;">445</td><td style="text-align: center; padding: 10px 16px;">212</td><td style="text-align: center; padding: 10px 16px; font-weight: bold; background-color: #fafafa;">1,667</td><td style="text-align: center; padding: 10px 16px; font-weight: bold; background-color: #fafafa;">1,011</td></tr>
+                            <tr><td style="text-align: left; padding: 10px 16px; font-weight: bold;">AURN (UK)</td><td style="text-align: center; padding: 10px 16px;">1</td><td style="text-align: center; padding: 10px 16px;">70</td><td style="text-align: center; padding: 10px 16px;">39</td><td style="text-align: center; padding: 10px 16px;">80</td><td style="text-align: center; padding: 10px 16px;">61</td><td style="text-align: center; padding: 10px 16px;">8</td><td style="text-align: center; padding: 10px 16px; font-weight: bold; background-color: #fafafa;">259</td><td style="text-align: center; padding: 10px 16px; font-weight: bold; background-color: #fafafa;">113</td></tr>
+                            <tr><td style="text-align: left; padding: 10px 16px; font-weight: bold;">CPCB (India)</td><td style="text-align: center; padding: 10px 16px;">179</td><td style="text-align: center; padding: 10px 16px;">179</td><td style="text-align: center; padding: 10px 16px;">182</td><td style="text-align: center; padding: 10px 16px;">191</td><td style="text-align: center; padding: 10px 16px;">190</td><td style="text-align: center; padding: 10px 16px;">183</td><td style="text-align: center; padding: 10px 16px; font-weight: bold; background-color: #fafafa;">1,104</td><td style="text-align: center; padding: 10px 16px; font-weight: bold; background-color: #fafafa;">211</td></tr>
+                            <tr><td style="text-align: left; padding: 10px 16px; font-weight: bold;">CNEMC (China)</td><td style="text-align: center; padding: 10px 16px;">1487</td><td style="text-align: center; padding: 10px 16px;">1481</td><td style="text-align: center; padding: 10px 16px;">1488</td><td style="text-align: center; padding: 10px 16px;">1481</td><td style="text-align: center; padding: 10px 16px;">1471</td><td style="text-align: center; padding: 10px 16px;">1485</td><td style="text-align: center; padding: 10px 16px; font-weight: bold; background-color: #fafafa;">8,893</td><td style="text-align: center; padding: 10px 16px; font-weight: bold; background-color: #fafafa;">1,491</td></tr>
+                            <tr><td style="text-align: left; padding: 10px 16px; font-weight: bold;">EEA-FR (France)</td><td style="text-align: center; padding: 10px 16px;">5</td><td style="text-align: center; padding: 10px 16px;">219</td><td style="text-align: center; padding: 10px 16px;">211</td><td style="text-align: center; padding: 10px 16px;">204</td><td style="text-align: center; padding: 10px 16px;">131</td><td style="text-align: center; padding: 10px 16px;">37</td><td style="text-align: center; padding: 10px 16px; font-weight: bold; background-color: #fafafa;">807</td><td style="text-align: center; padding: 10px 16px; font-weight: bold; background-color: #fafafa;">380</td></tr>
+                            <tr><td style="text-align: left; padding: 10px 16px; font-weight: bold;">EEA-DE (Germany)</td><td style="text-align: center; padding: 10px 16px;">65</td><td style="text-align: center; padding: 10px 16px;">370</td><td style="text-align: center; padding: 10px 16px;">262</td><td style="text-align: center; padding: 10px 16px;">316</td><td style="text-align: center; padding: 10px 16px;">246</td><td style="text-align: center; padding: 10px 16px;">75</td><td style="text-align: center; padding: 10px 16px; font-weight: bold; background-color: #fafafa;">1,334</td><td style="text-align: center; padding: 10px 16px; font-weight: bold; background-color: #fafafa;">405</td></tr>
+                            <tr><td style="text-align: left; padding: 10px 16px; font-weight: bold;">SINAICA (Mexico)</td><td style="text-align: center; padding: 10px 16px;">12</td><td style="text-align: center; padding: 10px 16px;">11</td><td style="text-align: center; padding: 10px 16px;">15</td><td style="text-align: center; padding: 10px 16px;">16</td><td style="text-align: center; padding: 10px 16px;">6</td><td style="text-align: center; padding: 10px 16px;">15</td><td style="text-align: center; padding: 10px 16px; font-weight: bold; background-color: #fafafa;">75</td><td style="text-align: center; padding: 10px 16px; font-weight: bold; background-color: #fafafa;">24</td></tr>
+                            <tr style="background-color: #f5f5f5; border-top: 2px solid #e0e0e0;"><td colspan="9" style="text-align: center; padding: 12px 16px; font-weight: bold; font-size: 1.1em; color: #1e4e52;">Total Monitoring Pollutant Time Series: 14,139</td></tr>
+                            <tr style="background-color: #f5f5f5; border-top: 2px solid #e0e0e0;"><td colspan="9" style="text-align: center; padding: 12px 16px; font-weight: bold; font-size: 1.1em; color: #1e4e52;">Total Monitoring Sites: 3,635</td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <p style="text-align: center; color: #666; font-style: italic; margin-top: 0.75rem; font-size: 0.95em; margin-bottom: 4rem;">
-                <b>Table 1. </b>Number of monitoring sites per pollutant and dataset in AQA-Bench.
-            </p>
+            <p style="text-align: center; color: #666; font-style: italic; margin-top: 0.75rem; font-size: 0.95em; margin-bottom: 3rem;"><b>Table 1. </b>Number of monitoring sites per pollutant and dataset in AQA-Data.</p>
 
-            <div class="container" style="max-width: 90%; margin: 0 auto; display: flex; justify-content: center;">
+            <div class="container" style="max-width: 95%; margin: 0 auto; display: flex; justify-content: center;">
                 <figure class="table-figure" style="text-align: center; width: 100%;">
-                    <img class="figure-image" 
-                        src="website/img/Site_distribution_plot.png" 
-                        alt="Figure 2. Geographical distribution of monitoring sites in AtmoBench." 
-                        style="width: 100%; max-width: 1100px; height: auto; display: block; margin: 0 auto 1rem auto; object-fit: contain; border-radius: 8px; border: 1px solid #e0e0e0; box-shadow: 0 4px 12px rgba(0,0,0,0.05);"/>
-                    <figcaption class="figure-caption" style="font-style: normal; font-size: 1.05em; color: rgb(50, 50, 50);">
-                        <b>Figure 2.</b> Geographical distribution of monitoring sites in AQA-Bench dataset.
-                    </figcaption>
+                    <iframe class="figure-map" src="website/img/Site_distribution_map_2.html" title="Geographical distribution of monitoring sites." style="width: 100%; max-width: 1100px; height: 550px; display: block; margin: 0 auto 0.5rem auto; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); background-color: #ffffff;" allowfullscreen></iframe>
+                    <figcaption class="figure-caption" style="text-align: center; color: #555; margin-top: 0.75rem; font-size: 1em;"><b>Figure 2.</b> GIS dashboard mapping spatial coordinates of AQA-Data stations.</figcaption>
                 </figure>
             </div>
-
         </div>
     </section>
 
-    <section class="section" id="benchmark-design" style="padding-top:1.5rem;">
+    <section class="section" id="aqa-bench" style="padding-top:1.5rem;">
         <div class="container" style="max-width: 80%; margin: 0 auto;">
-            <h2 class="title is-3" style="text-align:center; margin-bottom: 2.5rem; font-size: 2.3em;">Benchmark Design</h2>
-            
+            <h2 class="title is-3" style="text-align:center; margin-bottom: 2.5rem; font-size: 2.3em; color: #1e4e52;">AQA-Bench Evaluation Framework</h2>
             <div class="content has-text-justified" style="max-width: 95%; font-size: 1.2em; margin: 0 auto; line-height: 1.55;">
-                <h3 class="title is-4" style="text-align:left; margin-top: 2rem; margin-bottom: 1rem; font-size: 1.5em;">Evaluation Protocol</h3>
-                
-                <div style="margin-left: 1em; margin-top: 1.5em;">
-                    <p style="text-align:justify; color:rgb(31, 30, 30); margin-bottom: 2rem;">
-                        <b>1. Strict Continuity Preprocessing:</b> Monitored streams are constrained to locations retaining at least 70% data integrity with zero gaps longer than two weeks. Missing temporal points are resolved via state-of-the-art Multiple Seasonal-Trend decomposition using LOESS (MSTL).
-                    </p>
-                    <p style="text-align:justify; color:rgb(31, 30, 30); margin-bottom: 1em;">
-                        <b>2. Standardized Task Setup:</b> Formulated in a strictly univariate setting using a 168-hour context window to predict a rolling 24-hour target timeline. 
-                    </p>
+                <h3 class="title is-4" style="text-align:left; margin-top: 1rem; margin-bottom: 1rem; font-size: 1.5em;">Evaluation Protocol</h3>
+                <div style="margin-left: 1em; margin-top: 1rem;">
+                    <p><b>1. Strict Continuity Preprocessing:</b> Monitored streams retain at least 70% integrity with no gaps larger than two weeks. Missing temporal points are resolved via Multiple Seasonal-Trend decomposition using LOESS (MSTL).</p>
+                    <p><b>2. Standardized Task Setup:</b> Formulated in a strictly univariate setting using a 168-hour context window to predict a rolling 24-hour target timeline.</p>
                 </div>
             </div>
         </div>
@@ -390,197 +173,126 @@
             <h2 class="title is-3" style="text-align:center; margin-bottom: 2.5rem; font-size: 2.3em;">Leaderboard</h2>
             <div class="content has-text-justified" style="max-width: 95%; font-size: 1.2em; margin: 0 auto; line-height: 1.55;">
                 <p style="text-align:center; color:rgb(31, 30, 30); margin-bottom: 2rem;">
-                    Overall model performance on <span class="atmobench">AQA-Bench</span> across regions and variables. Results are normalized by the Seasonal Naive baseline.
+                    Overall model performance on <b>AQA-Bench</b> across regions and variables. Results are normalized by the Seasonal Naive baseline.
                 </p>
             </div>
         </div>
+
         <div class="container" style="margin: 2rem auto 0 auto; display: flex; justify-content: center;">
             <div style="border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow: hidden; display: inline-block;">
-                <div id="atmobench-main-table"></div>
+                <div id="aqa-main-table"></div> 
             </div>
         </div> 
         <p style="text-align: center; color: #666; font-style: italic; margin-top: 0.75rem; font-size: 0.95em; margin-bottom: 4rem;">
-            <b>Table 2. </b>Overall results across all countries and all pollutants.
+            <b>Table 2. </b>Overall platform micro-averages across all networks and target pollutants.
         </p>
         
-        <!-- Per Dataset MASE Results -->
         <div class="container" style="max-width: 80%; margin: 3rem auto 0 auto;">
             <h3 class="title is-4" style="text-align:center; margin-bottom: 1.5rem; font-size: 1.6em; color: #1e4e52;">Per Dataset MASE Results</h3>
         </div>
-        <div class="container" style="margin: 0 auto 2rem auto; display: flex; justify-content: center;">
-            <div style="border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow: hidden; display: inline-block;">
-                <div id="atmobench-dataset-table-mase"></div>
+        <div class="container" style="margin: 0 auto 2rem auto; display: flex; justify-content: center; width: 95%;">
+            <div style="border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow: hidden; width: 100%;">
+                <div id="aqa-dataset-table-mase" style="width: 100%;"></div>
             </div>
         </div>
         <p style="text-align: center; color: #666; font-style: italic; margin-top: 0.75rem; font-size: 0.95em; margin-bottom: 4rem;">
-            <b> Table 3. </b>Normalized MASE scores disaggregated by 7 countries across all pollutants.
+            <b> Table 3. </b>Normalized MASE scores disaggregated by 7 country tracking streams.
         </p>
 
-        <!-- Per Pollutant MASE Results -->
         <div class="container" style="max-width: 80%; margin: 4rem auto 0 auto;">
             <h3 class="title is-4" style="text-align:center; margin-bottom: 1.5rem; font-size: 1.6em; color: #1e4e52;">Per Pollutant MASE Results</h3>
         </div>
-        <div class="container" style="margin: 0 auto 3rem auto; display: flex; justify-content: center;">
-            <div style="border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow: hidden; display: inline-block;">
-                <div id="atmobench-pollutant-table-mase"></div>
+        <div class="container" style="margin: 0 auto 3rem auto; display: flex; justify-content: center; width: 95%;">
+            <div style="border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow: hidden; width: 100%;">
+                <div id="aqa-pollutant-table-mase" style="width: 100%;"></div>
             </div>
         </div>
         <p style="text-align: center; color: #666; font-style: italic; margin-top: 0.75rem; font-size: 0.95em; margin-bottom: 4rem;">
-            <b>Table 4. </b>Normalized MASE scores disaggregated by 6 major atmospheric pollutant profiles across all datasets.
+            <b>Table 4. </b>Normalized MASE scores disaggregated by 6 major atmospheric pollutant profiles.
         </p>
 
-        <!-- Per Dataset CRPS Results -->
         <div class="container" style="max-width: 80%; margin: 4rem auto 0 auto;">
             <h3 class="title is-4" style="text-align:center; margin-bottom: 1.5rem; font-size: 1.6em; color: #1e4e52;">Per Dataset CRPS Results</h3>
         </div>
-        <div class="container" style="margin: 0 auto 3rem auto; display: flex; justify-content: center;">
-            <div style="border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow: hidden; display: inline-block;">
-                <div id="atmobench-dataset-table-crps"></div>
+        <div class="container" style="margin: 0 auto 3rem auto; display: flex; justify-content: center; width: 95%;">
+            <div style="border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow: hidden; width: 100%;">
+                <div id="aqa-dataset-table-crps" style="width: 100%;"></div>
             </div>
         </div>
         <p style="text-align: center; color: #666; font-style: italic; margin-top: 0.75rem; font-size: 0.95em; margin-bottom: 4rem;">
-            <b>Table 5. </b>Normalized CRPS scores disaggregated by 7 countries across all pollutants.
+            <b>Table 5. </b>Normalized CRPS scores disaggregated by 7 country tracking streams.
         </p>
 
-        <!-- Per Pollutant CRPS Results -->
         <div class="container" style="max-width: 80%; margin: 4rem auto 0 auto;">
             <h3 class="title is-4" style="text-align:center; margin-bottom: 1.5rem; font-size: 1.6em; color: #1e4e52;">Per Pollutant CRPS Results</h3>
         </div>
-        <div class="container" style="margin: 0 auto 3rem auto; display: flex; justify-content: center;">
-            <div style="border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow: hidden; display: inline-block;">
-                <div id="atmobench-pollutant-table-crps"></div>
+        <div class="container" style="margin: 0 auto 3rem auto; display: flex; justify-content: center; width: 95%;">
+            <div style="border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow: hidden; width: 100%;">
+                <div id="aqa-pollutant-table-crps" style="width: 100%;"></div>
             </div>
         </div>
         <p style="text-align: center; color: #666; font-style: italic; margin-top: 0.75rem; font-size: 0.95em; margin-bottom: 4rem;">
-            <b>Table 6. </b>Normalized CRPS scores disaggregated by 6 major atmospheric pollutant profiles across all datasets.
+            <b>Table 6. </b>Normalized CRPS scores disaggregated by 6 major atmospheric pollutant profiles.
         </p>
     </section>
 
     <section class="section" id="key-findings" style="padding-top:1.5rem;">
         <div class="container" style="max-width: 80%; margin: 0 auto;">
-        <h2 class="title is-3" style="text-align:center; margin-bottom: 2.5rem; font-size: 2.3em;">Key Findings</h2>
-        <div class="content has-text-justified" style="max-width: 95%; font-size: 1.2em; margin: 0 auto; line-height: 1.55;">
-            
-            <p style="text-align:justify; color:rgb(31, 30, 30); margin-bottom: 1em; background: #f5f5f5; padding: 15px; border-radius: 8px;">
-            <b>Finding 1. Multi-modal Cross-Architectures Lead the Standings.</b><br>
-            VisionTS++ achieves the top validation metric worldwide by translating temporal charts into visual arrays and analyzing them utilizing a vision foundation encoder. This highlights the potency of cross-modal pretraining rules over isolated step processing.
-            </p>
-
-            <p style="text-align:justify; color:rgb(31, 30, 30); margin-bottom: 1em; background: #f5f5f5; padding: 15px; border-radius: 8px;">
-            <b>Finding 2. Zero-Shot TSFMs Consistently Beat Local Track Customizations.</b><br>
-            Pretrained foundation systems operated out-of-the-box without localized adaptation consistently outperform traditional statistical rules and specialized machine learning baselines (like LightGBM and DLinear) optimized parameters directly on targeted target test regions.
-            </p>
-
-            <p style="text-align:justify; color:rgb(31, 30, 30); margin-bottom: 1em; background: #f5f5f5; padding: 15px; border-radius: 8px;">
-            <b>Finding 3. Distributional Severity Demands Global Benchmark Diversity.</b><br>
-            Evaluating frameworks solely on clean Western atmospheres masks model behavior in highly complex, high-emission sectors. On challenging networks like India's CPCB, traditional deep learning networks fail to clear the basic threshold set by Seasonal Naive baselines.
-            </p>
-            
-        </div>
+            <h2 class="title is-3" style="text-align:center; margin-bottom: 2.5rem; font-size: 2.3em;">Key Findings</h2>
+            <div class="content has-text-justified" style="max-width: 95%; font-size: 1.2em; margin: 0 auto; line-height: 1.55;">
+                <p style="margin-bottom: 1em; background: #f5f5f5; padding: 15px; border-radius: 8px;"><b>Finding 1. Multi-modal Cross-Architectures Lead the Standings.</b><br>VisionTS++ achieves top standings by treating charts as visual vectors using pre-trained computer vision encoders.</p>
+                <p style="margin-bottom: 1em; background: #f5f5f5; padding: 15px; border-radius: 8px;"><b>Finding 2. Zero-Shot TSFMs Consistently Beat Local Track Customizations.</b><br>Pretrained zero-shot time series foundation models beat classical networks without requiring localized optimization loops.</p>
+                <p style="margin-bottom: 1em; background: #f5f5f5; padding: 15px; border-radius: 8px;"><b>Finding 3. Distributional Severity Demands Global Benchmark Diversity.</b><br>Highly polluted ecosystems (like CPCB India) reveal critical performance drops hidden by clean, low-emission datasets.</p>
+            </div>
         </div>
     </section>
 
-    <!-- Case Study Section -->
     <section class="section" id="case-study" style="padding-top:1.5rem;">
         <div class="container is-max-desktop content" style="max-width: 80%; margin: 0 auto;">
-        <h2 class="title is-3" style="text-align:center; margin-bottom: 2.5rem; font-size: 2.3em;">Plots</h2>
-        
-        <!-- Question Cases -->
-        <div class="box" style="padding: 2rem; margin-bottom: 3rem; background-color: #fafafa;">
-            <div id="question-carousel" class="case-carousel">
-            <div class="case-header">
-                <h4 class="case-title" style="font-size: 1.4em; font-weight: bold; text-align: center; margin-bottom: 1.5rem;"></h4>
+            <h2 class="title is-3" style="text-align:center; margin-bottom: 2.5rem; font-size: 2.3em;">Analytical Plots</h2>
+            <div class="box" style="padding: 2rem; margin-bottom: 3rem; background-color: #fafafa;">
+                <div id="question-carousel" class="case-carousel">
+                    <div class="case-header"><h4 class="case-title" style="font-size: 1.4em; font-weight: bold; text-align: center; margin-bottom: 1.5rem;"></h4></div>
+                    <div class="case-image-container" style="text-align: center; margin-bottom: 1.5rem; min-height: 500px; display: flex; align-items: center; justify-content: center; background-color: white; border: 2px solid #e0e0e0; border-radius: 8px;"></div>
+                    <div class="case-controls" style="display: flex; justify-content: space-between; align-items: center;">
+                        <button class="button is-medium prev-case" style="background-color: #4a5d7a; color: white;"><span class="icon"><i class="fas fa-arrow-left"></i></span><span>Previous</span></button>
+                        <span class="case-counter" style="font-size: 1.1em; font-weight: 500;"></span>
+                        <button class="button is-medium next-case" style="background-color: #4a5d7a; color: white;"><span>Next</span><span class="icon"><i class="fas fa-arrow-right"></i></span></button>
+                    </div>
+                </div>
             </div>
-            <div class="case-image-container" style="text-align: center; margin-bottom: 1.5rem; min-height: 500px; display: flex; align-items: center; justify-content: center; background-color: white; border: 2px solid #e0e0e0; border-radius: 8px;">
-                <!-- Image will be inserted here by JavaScript -->
-            </div>
-            <div class="case-controls" style="display: flex; justify-content: space-between; align-items: center;">
-                <button class="button is-medium prev-case" style="background-color: #4a5d7a; color: white;">
-                <span class="icon"><i class="fas fa-arrow-left"></i></span>
-                <span>Previous</span>
-                </button>
-                <span class="case-counter" style="font-size: 1.1em; font-weight: 500;"></span>
-                <button class="button is-medium next-case" style="background-color: #4a5d7a; color: white;">
-                <span>Next</span>
-                <span class="icon"><i class="fas fa-arrow-right"></i></span>
-                </button>
-            </div>
-            </div>
-        </div>
-        
-        <p style="text-align: center; color: #666; font-style: italic; margin-top: 1rem;">
-            Use arrow keys (← →) or buttons to navigate through plots
-        </p>
         </div>
     </section>
 
     <section class="section" id="BibTeX" style="padding-top:1.5rem;">
         <div class="container is-max-desktop content" style="max-width: 80%; margin: 0 auto;">
-        <h2 class="title is-3" style="text-align:center; font-size: 2.3em;">BibTeX</h2>
-        <pre style="font-size: 1.0em;">
-    @article{,
-    title={AQA-Bench: A Large-Scale Multi-Region Benchmark for Air Quality Forecasting with Time Series Foundation Models},
-    author={Bharadwaj, Rishi and Gupta, Manik and Arjunan, Pandarasamy},
-    year={2026}
-    }
-        </pre>
+            <h2 class="title is-3" style="text-align:center; font-size: 2.3em;">BibTeX</h2>
+            <pre style="font-size: 1.0em;">
+@article{bharadwaj2026air,
+  title={Air Quality Arena: A Unified Platform for Ground Monitoring Data, Analytics, Benchmarking, and Foundation Models},
+  author={Bharadwaj, Rishi and Gupta, Manik and Arjunan, Pandarasamy},
+  journal={arXiv preprint},
+  year={2026}
+}
+            </pre>
         </div>
     </section>
 
     <section>
-        <div
-            class="section"
-            id="org-banners"
-            style="
-            display: flex;
-            margin-bottom: -3rem;
-            margin-left: 3rem;
-            margin-right: 3rem;
-            "
-        >
-            <a
-            href="https://www.bits-pilani.ac.in/hyderabad/"
-            target="_blank"
-            class="ext-link"
-            style="margin: auto;"
-            >
-            <img
-                class="center-block org-banner"
-                src="website/img/bits_logo.jpg"
-                style="width: 300px; height: auto;"
-            />
-            </a>
-
-            <a
-            href="https://iisc.ac.in/"
-            target="_blank"
-            class="ext-link"
-            style="margin: auto;"
-            >
-            <img
-                class="center-block org-banner"
-                src="website/img/iisc_logo.jpg"
-                style="width: 300px; height: auto;"
-            />
-            </a>
+        <div class="section" id="org-banners" style="display: flex; margin-bottom: -3rem; margin-left: 3rem; margin-right: 3rem;">
+            <a href="https://www.bits-pilani.ac.in/hyderabad/" target="_blank" class="ext-link" style="margin: auto;"><img class="center-block org-banner" src="website/img/bits_logo.jpg" style="width: 300px; height: auto;" /></a>
+            <a href="https://iisc.ac.in/" target="_blank" class="ext-link" style="margin: auto;"><img class="center-block org-banner" src="website/img/iisc_logo.jpg" style="width: 300px; height: auto;" /></a>
         </div>
     </section>
 
     <footer class="footer">
         <div class="columns is-centered">
             <div class="column is-9">
-            <div class="content">
-            <p style="font-size: 1.15em;">
-                This website is adapted from 
-                <a href="https://nerfies.github.io/" style="text-decoration: none;">Nerfies</a>, licensed under a 
-                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" style="text-decoration: none;">
-                Creative Commons Attribution-ShareAlike 4.0 International License
-                </a>.
-            </p>
+                <div class="content">
+                    <p style="font-size: 1.15em;">This website is adapted from <a href="https://github.com/nerfies/nerfies.github.io" style="text-decoration: none;">Nerfies</a>, licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" style="text-decoration: none;">Creative Commons Attribution-ShareAlike 4.0 International License</a>.</p>
+                </div>
             </div>
         </div>
-        </div>
     </footer>
-
 </body>
 </html>

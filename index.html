@@ -67,7 +67,7 @@
                             <img src="website/img/statistics.png" alt="logo" style="vertical-align: middle; margin-right: 15px; position: relative; top: -5px;" width="70" height="70" />
                             <span class="aqa-brand" style="vertical-align: middle">Air Quality Arena</span>
                         </h1>
-                        <h2 class="subtitle is-3 publication-subtitle" style="color: #4a4a4a; font-weight: 500; margin-top: 0rem; padding: 0 20px; line-height: 1.3;">
+                        <h2 class="title is-1 publication-title is-bold" style="margin-top:-0.7em; margin-right: 30px; margin-left: 30px;">
                             A Unified Platform for Ground Monitoring Data, Analytics, Benchmarking, and Foundation Models
                         </h2>
                         <div class="is-size-5 publication-authors">
@@ -95,7 +95,15 @@
             <h2 class="title is-3" style="text-align:center; margin-bottom:1rem; font-size: 2.3em;">Overview</h2>
             <br>
             <div class="content has-text-justified" style="max-width: 95%; font-size: 1.2em; margin: 0 auto; line-height: 1.55;">
-                <p>Air pollution causes an estimated 7.9 million premature deaths annually, making forecasting a critical public health priority. We introduce the <b>Air Quality Arena (AQA)</b> platform, incorporating the large-scale <b>AQA-Data</b> repository and the standard <b>AQA-Bench</b> framework.</p>
+                <p style="text-align:justify; color:rgb(31, 30, 30);">
+                    Air pollution causes an estimated 7.9 million premature deaths annually, making accurate forecasting a critical public health priority. Machine learning is increasingly being applied to forecast air pollution levels, yet existing benchmarks remain narrow in both geographic scope and pollutant coverage, and fail to evaluate the latest generation of time series foundation models (TSFMs) on real-world, large-scale data.
+                </p>
+                <p style="text-align:justify; color:rgb(31, 30, 30);">
+                    To bridge this gap, we introduce the <b>Air Quality Arena (AQA)</b> platform, incorporating the large-scale <b>AQA-Data</b> repository and the standard <b>AQA-Bench</b> framework. The platform covers <b>6 major pollutants</b> (PM<sub>2.5</sub>, PM<sub>10</sub>, NO<sub>2</sub>, SO<sub>2</sub>, CO, and O<sub>3</sub>) over a three-year period (July 2022 - June 2025) across <b>7 diverse countries and 4 continents</b>, compiling more than <b>14,000 station-pollutant series</b>.
+                </p>
+                <p style="text-align:justify; color:rgb(31, 30, 30);">
+                    We benchmark this dataset across <b>11 leading time series foundation models</b>, <b>4 ML/DL Models</b> and <b>2 Classical Baselines</b> to evaluate performance on short-term air quality forecasting. Our framework directly tests whether pretrained zero-shot foundation models can successfully compete with localized models optimized specifically on target stream metrics.
+                </p>
             </div>
             <div class="columns is-centered">
                 <div class="column is-11-desktop is-12-mobile">

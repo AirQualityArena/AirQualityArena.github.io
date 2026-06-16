@@ -117,9 +117,9 @@ var modelBadgeFormatter = function(cell) {
     if (category === "TSFM" || category === "TSFMS") {
         badge = '<span style="background: #659bd7ff; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-right: 8px;">TSFM</span>';
     } else if (category === "ML Baseline") {
-        badge = '<span style="background: #de8888ff; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-right: 8px;">ML</span>';
+        badge = '<span style="background: #de8888ff; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-right: 8px;">ML/DL</span>';
     } else if (category === "Statistical Baseline") {
-        badge = '<span style="background: #7ac292ff; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-right: 8px;">Stat</span>';
+        badge = '<span style="background: #7ac292ff; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-right: 8px;">Statistical</span>';
     }
     return badge + value;
 };

@@ -1,9 +1,10 @@
+// Air Quality Arena (AQA) Dynamic Leaderboard Table Configuration
+
 // 1. UTILITY: Helper function to automatically convert raw CSV text into a JSON array
 function parseCSVToJSON(csvText) {
     const lines = csvText.split("\n").map(line => line.trim()).filter(line => line.length > 0);
     if (lines.length === 0) return [];
     
-    // Extract headers and sanitize any lingering quotes or spaces
     const headers = lines[0].split(",").map(h => h.replace(/^["']|["']$/g, '').trim());
     
     return lines.slice(1).map(line => {
@@ -11,7 +12,6 @@ function parseCSVToJSON(csvText) {
         const rowObject = {};
         headers.forEach((header, index) => {
             const val = values[index];
-            // Automatically convert numeric metrics to real floats, keep strings intact
             rowObject[header] = (val && !isNaN(val)) ? parseFloat(val) : val;
         });
         return rowObject;
@@ -21,9 +21,9 @@ function parseCSVToJSON(csvText) {
 // 2. STYLING: Shared color gradient heatmap function
 var applyHeatmapColor = function(cell, value, min, max, baseColor) {
     var percent = (value - min) / (max - min);
-    percent = Math.max(0, Math.min(1, percent)); // Clamp value between 0 and 1
+    percent = Math.max(0, Math.min(1, percent)); 
     
-    var startColor = { r: 255, g: 255, b: 255 }; // Lightest color boundary (Excellent)
+    var startColor = { r: 255, g: 255, b: 255 }; 
     
     var r = Math.round(startColor.r + percent * (baseColor.r - startColor.r));
     var g = Math.round(startColor.g + percent * (baseColor.g - startColor.g));
@@ -33,7 +33,6 @@ var applyHeatmapColor = function(cell, value, min, max, baseColor) {
     cell.getElement().style.fontWeight = "600";
 };
 
-// Formatter for MASE columns (Muted blue-gray accent theme)
 var maseColorFormatter = function (cell, formatterParams) {
     var value = cell.getValue();
     if (value === "-" || value === null || value === undefined || isNaN(value)) return value;
@@ -46,7 +45,6 @@ var maseColorFormatter = function (cell, formatterParams) {
     return parseFloat(value).toFixed(4);
 };
 
-// Formatter for CRPS columns (Warm bronze/tan accent theme)
 var crpsColorFormatter = function (cell, formatterParams) {
     var value = cell.getValue();
     if (value === "-" || value === null || value === undefined || isNaN(value)) return value;
@@ -59,7 +57,6 @@ var crpsColorFormatter = function (cell, formatterParams) {
     return parseFloat(value).toFixed(4);
 };
 
-// Specialized Progress Bar Formatter for MASE Overall sub-table summaries (Warm Bronze/Brown Theme)
 var overallColumnFillFormatter = function (cell, formatterParams) {
     var value = cell.getValue();
     if (value === "-" || value === null || value === undefined || isNaN(value)) return value;
@@ -70,9 +67,8 @@ var overallColumnFillFormatter = function (cell, formatterParams) {
     var percent = (value - min) / (max - min);
     percent = Math.max(0, Math.min(1, percent));
     
-    // Interpolate bronze fill color using the exact shared baseBronze profile
     var lightBronze = { r: 250, g: 238, b: 224 };
-    var darkBronze = { r: 232, g: 197, b: 151 }; // Shared baseBronze
+    var darkBronze = { r: 232, g: 197, b: 151 }; 
     
     var r = Math.round(lightBronze.r + percent * (darkBronze.r - lightBronze.r));
     var g = Math.round(lightBronze.g + percent * (darkBronze.g - lightBronze.g));
@@ -87,7 +83,6 @@ var overallColumnFillFormatter = function (cell, formatterParams) {
     return parseFloat(value).toFixed(4);
 };
 
-// Specialized Progress Bar Formatter for CRPS Overall summaries (Atmospheric Blue/Gray Theme)
 var overallCrpsColumnFillFormatter = function (cell, formatterParams) {
     var value = cell.getValue();
     if (value === "-" || value === null || value === undefined || isNaN(value)) return value;
@@ -98,9 +93,8 @@ var overallCrpsColumnFillFormatter = function (cell, formatterParams) {
     var percent = (value - min) / (max - min);
     percent = Math.max(0, Math.min(1, percent));
     
-    // Interpolate blue fill color using the exact shared baseBlueGray profile
     var lightBlue = { r: 236, g: 242, b: 247 };
-    var darkBlue = { r: 182, g: 206, b: 226 }; // Shared baseBlueGray
+    var darkBlue = { r: 182, g: 206, b: 226 }; 
     
     var r = Math.round(lightBlue.r + percent * (darkBlue.r - lightBlue.r));
     var g = Math.round(lightBlue.g + percent * (darkBlue.g - lightBlue.g));
@@ -115,7 +109,6 @@ var overallCrpsColumnFillFormatter = function (cell, formatterParams) {
     return parseFloat(value).toFixed(4);
 };
 
-// Dynamic tier-badge generator for model classifications
 var modelBadgeFormatter = function(cell) {
     var value = cell.getValue();
     var category = cell.getData().category ? cell.getData().category.trim() : "";
@@ -126,22 +119,20 @@ var modelBadgeFormatter = function(cell) {
     } else if (category === "ML Baseline") {
         badge = '<span style="background: #de8888ff; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-right: 8px;">ML</span>';
     } else if (category === "Statistical Baseline") {
-        badge = '<span style="background: #7ac292ff; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-right: 8px;">Statistical </span>';
+        badge = '<span style="background: #7ac292ff; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-right: 8px;">Stat</span>';
     }
     return badge + value;
 };
 
-
-// 3. CORE EXECUTOR: Fetch flat files as plain text, parse them to JSON, and render tables
+// 3. CORE EXECUTOR: Render tables with updated AQA data endpoints and DOM elements
 document.addEventListener('DOMContentLoaded', function() {
 
-    // --- 0. RENDERING MAIN LEADERBOARD ---
-    fetch('website/data/atmobench_main_results.csv')
+    // --- 0. MAIN LEADERBOARD ---
+    fetch('website/data/aqa_main_results.csv')
         .then(response => response.text())
         .then(csvText => {
             const parsedJsonData = parseCSVToJSON(csvText);
-            
-            new Tabulator("#atmobench-main-table", {
+            new Tabulator("#aqa-main-table", {
                 data: parsedJsonData,
                 layout: "fitDataCondensed",
                 responsiveLayout: false,
@@ -154,39 +145,40 @@ document.addEventListener('DOMContentLoaded', function() {
                     { title: "CRPS (norm.)", field: "crps_overall", width: 140, hozAlign: "center", headerHozAlign: "center", formatter: crpsColorFormatter, formatterParams: { min: 0.43, max: 1.00 } }
                 ]
             });
-        })
-        .catch(err => console.error('Error fetching/parsing main leaderboard:', err));
+        }).catch(err => console.error('Error fetching main leaderboard:', err));
 
-
-    // --- 1. RENDERING PER DATASET TABLE WITH PROGRESS BAR OVERALL COLUMN (MASE) ---
-    fetch('website/data/atmobench_dataset_results_mase.csv')
+    // --- 1. RENDERING PER DATASET TABLE (MASE) ---
+    fetch('website/data/aqa_dataset_results_mase.csv')
         .then(response => response.text())
         .then(csvText => {
             const parsedJsonData = parseCSVToJSON(csvText);
             
-            new Tabulator("#atmobench-dataset-table-mase", {
+            new Tabulator("#aqa-dataset-table-mase", {
                 data: parsedJsonData,
-                layout: "fitColumns", // fitDataCondensed
+                layout: "fitColumns", // Force the table to perfectly match your container width
                 responsiveLayout: false,
                 pagination: false,
                 height: "auto",
                 initialSort: [{ column: "overall_mase", dir: "asc" }],
                 columns: [
-                    { title: "Model", field: "model", frozen: true, width: 220, formatter: modelBadgeFormatter },
-                    { title: "AURN (UK)", field: "AURN", hozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 } },
-                    { title: "CNEMC (China)", field: "CNEMC", hozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 } },
-                    { title: "CPCB (India)", field: "CPCB", hozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 } },
-                    { title: "EEA_DE (Germany)", field: "EEA_DE", hozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 } },
-                    { title: "EEA_FR (France)", field: "EEA_FR", hozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 } },
-                    { title: "EPA (USA)", field: "EPA", hozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 } },
-                    { title: "SINAICA (Mexico)", field: "SINAICA", hozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 } },
+                    // Give the Model column a fixed footprint so it doesn't squish the data
+                    { title: "Model", field: "model", frozen: true, width: 200, formatter: modelBadgeFormatter },
+                    
+                    // Use growth parameters to let the data columns scale smoothly and evenly
+                    { title: "AURN (UK)", field: "AURN", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 }, minWidth: 90, growth: 1 },
+                    { title: "CNEMC (China)", field: "CNEMC", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 }, minWidth: 110, growth: 1 },
+                    { title: "CPCB (India)", field: "CPCB", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 }, minWidth: 100, growth: 1 },
+                    { title: "EEA_DE (Germany)", field: "EEA_DE", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 }, minWidth: 120, growth: 1 },
+                    { title: "EEA_FR (France)", field: "EEA_FR", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 }, minWidth: 110, growth: 1 },
+                    { title: "EPA (USA)", field: "EPA", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 }, minWidth: 95, growth: 1 },
+                    { title: "SINAICA (Mexico)", field: "SINAICA", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 }, minWidth: 120, growth: 1 },
                     { 
                         title: "Overall", 
                         field: "overall_mase", 
                         hozAlign: "left", 
                         headerHozAlign: "center",
                         cssClass: "avg-column",
-                        width: 110,
+                        width: 100, // Fixed size ensures the bar graphics look consistent
                         mutator: function(value, data) {
                             const fields = ["AURN", "CNEMC", "CPCB", "EEA_DE", "EEA_FR", "EPA", "SINAICA"];
                             let total = 0, count = 0;
@@ -198,36 +190,34 @@ document.addEventListener('DOMContentLoaded', function() {
                             });
                             return count > 0 ? (total / count) : "-";
                         },
-                        formatter: overallColumnFillFormatter, // Warm bronze/brown fill
+                        formatter: overallColumnFillFormatter, 
                         formatterParams: { min: 0.77, max: 1.02 }
                     }
                 ]
             });
         })
-        .catch(err => console.error('Error fetching/parsing dataset leaderboard:', err));
+        .catch(err => console.error('Error fetching dataset MASE table:', err));
 
-
-    // --- 2. RENDERING PER POLLUTANT TABLE WITH PROGRESS BAR OVERALL COLUMN (MASE) ---
-    fetch('website/data/atmobench_pollutant_results_mase.csv')
+    // --- 2. PER POLLUTANT TABLE (MASE) ---
+    fetch('website/data/aqa_pollutant_results_mase.csv')
         .then(response => response.text())
         .then(csvText => {
             const parsedJsonData = parseCSVToJSON(csvText);
-            
-            new Tabulator("#atmobench-pollutant-table-mase", {
+            new Tabulator("#aqa-pollutant-table-mase", {
                 data: parsedJsonData,
-                layout: "fitColumns", // fitDataCondensed
+                layout: "fitColumns",
                 responsiveLayout: false,
                 pagination: false,
                 height: "auto",
                 initialSort: [{ column: "overall_mase", dir: "asc" }],
                 columns: [
                     { title: "Model", field: "model", frozen: true, width: 220, formatter: modelBadgeFormatter },
-                    { title: "CO", field: "CO", hozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 } },
-                    { title: "NO2", field: "NO2", hozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 } },
-                    { title: "Ozone", field: "Ozone", hozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 } },
-                    { title: "PM10", field: "PM10", hozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 } },
-                    { title: "PM2.5", field: "PM2_5", hozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 } }, // Aligned metric mapping
-                    { title: "SO2", field: "SO2", hozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 } },
+                    { title: "CO", field: "CO", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 } },
+                    { title: "NO2", field: "NO2", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 } },
+                    { title: "Ozone", field: "Ozone", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 } },
+                    { title: "PM10", field: "PM10", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 } },
+                    { title: "PM2.5", field: "PM2_5", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 } }, 
+                    { title: "SO2", field: "SO2", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 } },
                     { 
                         title: "Overall", 
                         field: "overall_mase", 
@@ -246,44 +236,42 @@ document.addEventListener('DOMContentLoaded', function() {
                             });
                             return count > 0 ? (total / count) : "-";
                         },
-                        formatter: overallColumnFillFormatter, // Warm bronze/brown fill
+                        formatter: overallColumnFillFormatter, 
                         formatterParams: { min: 0.77, max: 1.02 }
                     }
                 ]
             });
-        })
-        .catch(err => console.error('Error fetching/parsing pollutant leaderboard:', err));
+        }).catch(err => console.error('Error fetching pollutant MASE table:', err));
 
-
-    // --- 3. RENDERING PER DATASET TABLE WITH BLUE PROGRESS BAR OVERALL COLUMN (CRPS) ---
-    fetch('website/data/atmobench_dataset_results_crps.csv')
+    // --- 3. RENDERING PER DATASET TABLE (CRPS) ---
+    fetch('website/data/aqa_dataset_results_crps.csv')
         .then(response => response.text())
         .then(csvText => {
             const parsedJsonData = parseCSVToJSON(csvText);
             
-            new Tabulator("#atmobench-dataset-table-crps", {
+            new Tabulator("#aqa-dataset-table-crps", {
                 data: parsedJsonData,
-                layout: "fitColumns", // fitDataCondensed
+                layout: "fitColumns", // Force full container distribution
                 responsiveLayout: false,
                 pagination: false,
                 height: "auto",
                 initialSort: [{ column: "overall_crps", dir: "asc" }], 
                 columns: [
-                    { title: "Model", field: "model", frozen: true, width: 220, formatter: modelBadgeFormatter },
-                    { title: "AURN (UK)", field: "AURN", hozAlign: "center", formatter: crpsColorFormatter, formatterParams: { min: 0.13, max: 1.00 } },
-                    { title: "CNEMC (China)", field: "CNEMC", hozAlign: "center", formatter: crpsColorFormatter, formatterParams: { min: 0.13, max: 1.00 } },
-                    { title: "CPCB (India)", field: "CPCB", hozAlign: "center", formatter: crpsColorFormatter, formatterParams: { min: 0.13, max: 1.00 } },
-                    { title: "EEA_DE (Germany)", field: "EEA_DE", hozAlign: "center", formatter: crpsColorFormatter, formatterParams: { min: 0.13, max: 1.00 } },
-                    { title: "EEA_FR (France)", field: "EEA_FR", hozAlign: "center", formatter: crpsColorFormatter, formatterParams: { min: 0.13, max: 1.00 } },
-                    { title: "EPA (USA)", field: "EPA", hozAlign: "center", formatter: crpsColorFormatter, formatterParams: { min: 0.13, max: 1.00 } },
-                    { title: "SINAICA (Mexico)", field: "SINAICA", hozAlign: "center", formatter: crpsColorFormatter, formatterParams: { min: 0.13, max: 1.00 } },
+                    { title: "Model", field: "model", frozen: true, width: 200, formatter: modelBadgeFormatter },
+                    { title: "AURN (UK)", field: "AURN", hozAlign: "center", headerHozAlign: "center", formatter: crpsColorFormatter, formatterParams: { min: 0.13, max: 1.00 }, minWidth: 90, growth: 1 },
+                    { title: "CNEMC (China)", field: "CNEMC", hozAlign: "center", headerHozAlign: "center", formatter: crpsColorFormatter, formatterParams: { min: 0.13, max: 1.00 }, minWidth: 110, growth: 1 },
+                    { title: "CPCB (India)", field: "CPCB", hozAlign: "center", headerHozAlign: "center", formatter: crpsColorFormatter, formatterParams: { min: 0.13, max: 1.00 }, minWidth: 100, growth: 1 },
+                    { title: "EEA_DE (Germany)", field: "EEA_DE", hozAlign: "center", headerHozAlign: "center", formatter: crpsColorFormatter, formatterParams: { min: 0.13, max: 1.00 }, minWidth: 120, growth: 1 },
+                    { title: "EEA_FR (France)", field: "EEA_FR", hozAlign: "center", headerHozAlign: "center", formatter: crpsColorFormatter, formatterParams: { min: 0.13, max: 1.00 }, minWidth: 110, growth: 1 },
+                    { title: "EPA (USA)", field: "EPA", hozAlign: "center", headerHozAlign: "center", formatter: crpsColorFormatter, formatterParams: { min: 0.13, max: 1.00 }, minWidth: 95, growth: 1 },
+                    { title: "SINAICA (Mexico)", field: "SINAICA", hozAlign: "center", headerHozAlign: "center", formatter: crpsColorFormatter, formatterParams: { min: 0.13, max: 1.00 }, minWidth: 120, growth: 1 },
                     { 
                         title: "Overall", 
                         field: "overall_crps", 
                         hozAlign: "left", 
                         headerHozAlign: "center",
                         cssClass: "avg-column",
-                        width: 110,
+                        width: 100,
                         mutator: function(value, data) {
                             const fields = ["AURN", "CNEMC", "CPCB", "EEA_DE", "EEA_FR", "EPA", "SINAICA"];
                             let total = 0, count = 0;
@@ -295,36 +283,34 @@ document.addEventListener('DOMContentLoaded', function() {
                             });
                             return count > 0 ? (total / count) : "-";
                         },
-                        formatter: overallCrpsColumnFillFormatter, // Atmospheric Blue fill
+                        formatter: overallCrpsColumnFillFormatter, 
                         formatterParams: { min: 0.40, max: 1.00 } 
                     }
                 ]
             });
         })
-        .catch(err => console.error('Error fetching/parsing dataset CRPS leaderboard:', err));
+        .catch(err => console.error('Error fetching dataset CRPS table:', err));
 
-
-    // --- 4. RENDERING PER POLLUTANT TABLE WITH BLUE PROGRESS BAR OVERALL COLUMN (CRPS) ---
-    fetch('website/data/atmobench_pollutant_results_crps.csv')
+    // --- 4. RENDERING PER POLLUTANT TABLE (CRPS) ---
+    fetch('website/data/aqa_pollutant_results_crps.csv')
         .then(response => response.text())
         .then(csvText => {
             const parsedJsonData = parseCSVToJSON(csvText);
-            
-            new Tabulator("#atmobench-pollutant-table-crps", {
+            new Tabulator("#aqa-pollutant-table-crps", {
                 data: parsedJsonData,
-                layout: "fitColumns", // fitDataCondensed
+                layout: "fitColumns",
                 responsiveLayout: false,
                 pagination: false,
                 height: "auto",
                 initialSort: [{ column: "overall_crps", dir: "asc" }],
                 columns: [
                     { title: "Model", field: "model", frozen: true, width: 220, formatter: modelBadgeFormatter },
-                    { title: "CO", field: "CO", hozAlign: "center", formatter: crpsColorFormatter, formatterParams: { min: 0.30, max: 1.15 } },
-                    { title: "NO2", field: "NO2", hozAlign: "center", formatter: crpsColorFormatter, formatterParams: { min: 0.30, max: 1.15 } },
-                    { title: "Ozone", field: "Ozone", hozAlign: "center", formatter: crpsColorFormatter, formatterParams: { min: 0.30, max: 1.15 } },
-                    { title: "PM10", field: "PM10", hozAlign: "center", formatter: crpsColorFormatter, formatterParams: { min: 0.30, max: 1.15 } },
-                    { title: "PM2.5", field: "PM2_5", hozAlign: "center", formatter: crpsColorFormatter, formatterParams: { min: 0.30, max: 1.15 } },
-                    { title: "SO2", field: "SO2", hozAlign: "center", formatter: crpsColorFormatter, formatterParams: { min: 0.30, max: 1.15 } },
+                    { title: "CO", field: "CO", hozAlign: "center", headerHozAlign: "center", formatter: crpsColorFormatter, formatterParams: { min: 0.30, max: 1.15 } },
+                    { title: "NO2", field: "NO2", hozAlign: "center", headerHozAlign: "center", formatter: crpsColorFormatter, formatterParams: { min: 0.30, max: 1.15 } },
+                    { title: "Ozone", field: "Ozone", hozAlign: "center", headerHozAlign: "center", formatter: crpsColorFormatter, formatterParams: { min: 0.30, max: 1.15 } },
+                    { title: "PM10", field: "PM10", hozAlign: "center", headerHozAlign: "center", formatter: crpsColorFormatter, formatterParams: { min: 0.30, max: 1.15 } },
+                    { title: "PM2.5", field: "PM2_5", hozAlign: "center", headerHozAlign: "center", formatter: crpsColorFormatter, formatterParams: { min: 0.30, max: 1.15 } },
+                    { title: "SO2", field: "SO2", hozAlign: "center", headerHozAlign: "center", formatter: crpsColorFormatter, formatterParams: { min: 0.30, max: 1.15 } },
                     { 
                         title: "Overall", 
                         field: "overall_crps", 
@@ -343,11 +329,10 @@ document.addEventListener('DOMContentLoaded', function() {
                             });
                             return count > 0 ? (total / count) : "-";
                         },
-                        formatter: overallCrpsColumnFillFormatter, // Atmospheric Blue fill
+                        formatter: overallCrpsColumnFillFormatter, 
                         formatterParams: { min: 0.40, max: 1.00 }
                     }
                 ]
             });
-        })
-        .catch(err => console.error('Error fetching/parsing pollutant CRPS leaderboard:', err));
+        }).catch(err => console.error('Error fetching pollutant CRPS table:', err));
 });

@@ -1,0 +1,397 @@
+epa:
+  preprocess:
+    zip: true
+    zip_path:     data/datasets/epa_data
+    unzip_dir: data/EPA/unzip_dir
+    by_year_by_site_dir: data/EPA/epa_data_by_site_by_year
+    by_site_all_years_dir: data/EPA/processed
+    target_start: "2022-07-01 00:00:00"
+    target_end:   "2025-06-30 23:00:00"
+
+  visualise:
+    make_dicts: true
+    folder: data/EPA/processed
+    date_range:
+      start: "2022-07-01 00:00:00"
+      end:   "2025-06-30 23:00:00"
+    output:
+      dicts_dir: data/EPA/vis_dicts
+      image_dir:  visualize_epa_images
+    features:
+      - "PM2.5 (µg/m³)"
+      - "PM10 (µg/m³)"
+      - "NO2 (µg/m³)"
+      - "SO2 (µg/m³)"
+      - "CO (mg/m³)"
+      - "Ozone (µg/m³)"
+    pollutant_limits:
+      "PM2.5 (µg/m³)": 15
+      "PM10 (µg/m³)":  45
+      "NO2 (µg/m³)":   25
+      "SO2 (µg/m³)":   40
+      "CO (mg/m³)":    4
+      "Ozone (µg/m³)": 100
+    
+  imputation:
+    dicts_dir: data/EPA/vis_dicts
+    input_dir: data/EPA/processed
+    output_dir: data/EPA/imputed
+    max_gap_hours: 336
+    max_data_missing: 30
+    max_workers: 24
+    date_range:
+      start: "2022-07-01 00:00:00"
+      end:   "2025-06-30 23:00:00"
+    features:
+      - "PM2.5 (µg/m³)"
+      - "PM10 (µg/m³)"
+      - "NO2 (µg/m³)"
+      - "SO2 (µg/m³)"
+      - "CO (mg/m³)"
+      - "Ozone (µg/m³)"
+
+
+cpcb:
+  preprocess:
+    zip: false
+    zip_path:     data/datasets/cpcb_data.zip
+    unzip_dir:    data/datasets/cpcb_data
+    input_folder: data/datasets/cpcb_data
+    output_dir:   data/CPCB/processed
+    max_workers:  24
+
+
+  visualise:
+    make_dicts: true
+    folder: data/CPCB/processed
+    date_range:
+      start: "2022-07-01 00:00:00"
+      end:   "2025-06-30 23:00:00"
+    output:
+      dicts_dir: data/CPCB/vis_dicts
+      image_dir:  visualize_cpcb_images
+    features:
+      - "PM2.5 (µg/m³)"
+      - "PM10 (µg/m³)"
+      - "NO2 (µg/m³)"
+      - "SO2 (µg/m³)"
+      - "CO (mg/m³)"
+      - "Ozone (µg/m³)"
+    pollutant_limits:
+      "PM2.5 (µg/m³)": 75
+      "PM10 (µg/m³)":  150
+      "NO2 (µg/m³)":   120
+      "SO2 (µg/m³)":   125
+      "CO (mg/m³)":    7
+      "Ozone (µg/m³)": 160
+
+  imputation:
+    dicts_dir: data/CPCB/vis_dicts
+    input_dir: data/CPCB/processed
+    output_dir: data/CPCB/imputed
+    max_gap_hours: 336
+    max_data_missing: 30
+    max_workers: 24
+    date_range:
+      start: "2022-07-01 00:00:00"
+      end:   "2025-06-30 23:00:00"
+    features:
+      - "PM2.5 (µg/m³)"
+      - "PM10 (µg/m³)"
+      - "NO2 (µg/m³)"
+      - "SO2 (µg/m³)"
+      - "CO (mg/m³)"
+      - "Ozone (µg/m³)"
+
+
+aurn:
+  preprocess:
+    zip: false
+    zip_path:         data/datasets/aurn.zip
+    unzip_dir:        data/datasets/aurn
+    rdata_conversion: true
+    rdata_dir:        data/datasets/aurn_data
+    csv_dir:          data/AURN/aurn_csv
+    output_dir:       data/AURN/processed
+    date_start:       "2022-07-01 00:00:00"
+    date_end:         "2025-06-30 23:00:00"
+    max_workers:      24
+
+  visualise:
+    make_dicts: true
+    folder: data/AURN/processed
+    date_range:
+      start: "2022-07-01 00:00:00"
+      end:   "2025-06-30 23:00:00"
+    output:
+      dicts_dir: data/AURN/vis_dicts
+      image_dir:  visualize_aurn_images
+    features:
+      - "PM2.5 (µg/m³)"
+      - "PM10 (µg/m³)"
+      - "NO2 (µg/m³)"
+      - "SO2 (µg/m³)"
+      - "CO (mg/m³)"
+      - "Ozone (µg/m³)"
+    pollutant_limits:
+      "PM2.5 (µg/m³)": 15
+      "PM10 (µg/m³)":  45
+      "NO2 (µg/m³)":   25
+      "SO2 (µg/m³)":   40
+      "CO (mg/m³)":    4
+      "Ozone (µg/m³)": 100
+
+  imputation:
+    dicts_dir: data/AURN/vis_dicts
+    input_dir: data/AURN/processed
+    output_dir: data/AURN/imputed
+    max_gap_hours: 336
+    max_data_missing: 30
+    max_workers: 24
+    date_range:
+      start: "2022-07-01 00:00:00"
+      end:   "2025-06-30 23:00:00"
+    features:
+      - "PM2.5 (µg/m³)"
+      - "PM10 (µg/m³)"
+      - "NO2 (µg/m³)"
+      - "SO2 (µg/m³)"
+      - "CO (mg/m³)"
+      - "Ozone (µg/m³)"
+
+
+eea:
+  preprocess:
+    convert_parquet: true
+    download_folders:
+      e1a: data/datasets/eea/urlso
+      e2a: data/datasets/eea/urls1
+    base_out_dir: data/EEA
+    start_date:   "2022-07-01 00:00:00"
+    end_date:     "2025-06-30 23:00:00"
+    max_workers:  24
+
+
+eea_fr:
+  visualise:
+    make_dicts: true
+    folder: data/EEA/FR/processed
+    date_range:
+      start: "2022-07-01 00:00:00"
+      end:   "2025-06-30 23:00:00"
+    output:
+      dicts_dir: data/EEA/FR/vis_dicts
+      image_dir:  visualize_eea_fr_images
+    features:
+      - "PM2.5 (µg/m³)"
+      - "PM10 (µg/m³)"
+      - "NO2 (µg/m³)"
+      - "SO2 (µg/m³)"
+      - "CO (mg/m³)"
+      - "Ozone (µg/m³)"
+    pollutant_limits:
+      "PM2.5 (µg/m³)": 15
+      "PM10 (µg/m³)":  45
+      "NO2 (µg/m³)":   25
+      "SO2 (µg/m³)":   40
+      "CO (mg/m³)":    4
+      "Ozone (µg/m³)": 100
+
+  imputation:
+    dicts_dir: data/EEA/FR/vis_dicts
+    input_dir: data/EEA/FR/processed
+    output_dir: data/EEA/FR/imputed
+    max_gap_hours: 336
+    max_data_missing: 30
+    max_workers: 24
+    date_range:
+      start: "2022-07-01 00:00:00"
+      end:   "2025-06-30 23:00:00"
+    features:
+      - "PM2.5 (µg/m³)"
+      - "PM10 (µg/m³)"
+      - "NO2 (µg/m³)"
+      - "SO2 (µg/m³)"
+      - "CO (mg/m³)"
+      - "Ozone (µg/m³)"
+
+
+eea_de:
+  visualise:
+    make_dicts: true
+    folder: data/EEA/DE/processed
+    date_range:
+      start: "2022-07-01 00:00:00"
+      end:   "2025-06-30 23:00:00"
+    output:
+      dicts_dir: data/EEA/DE/vis_dicts
+      image_dir:  visualize_eea_de_images
+    features:
+      - "PM2.5 (µg/m³)"
+      - "PM10 (µg/m³)"
+      - "NO2 (µg/m³)"
+      - "SO2 (µg/m³)"
+      - "CO (mg/m³)"
+      - "Ozone (µg/m³)"
+    pollutant_limits:
+      "PM2.5 (µg/m³)": 15
+      "PM10 (µg/m³)":  45
+      "NO2 (µg/m³)":   25
+      "SO2 (µg/m³)":   40
+      "CO (mg/m³)":    4
+      "Ozone (µg/m³)": 100
+
+  imputation:
+    dicts_dir: data/EEA/DE/vis_dicts
+    input_dir: data/EEA/DE/processed
+    output_dir: data/EEA/DE/imputed
+    max_gap_hours: 336
+    max_data_missing: 30
+    max_workers: 24
+    date_range:
+      start: "2022-07-01 00:00:00"
+      end:   "2025-06-30 23:00:00"
+    features:
+      - "PM2.5 (µg/m³)"
+      - "PM10 (µg/m³)"
+      - "NO2 (µg/m³)"
+      - "SO2 (µg/m³)"
+      - "CO (mg/m³)"
+      - "Ozone (µg/m³)"
+
+
+sinaica:
+  preprocess:
+    output_dir:  data/SINAICA/processed
+    date_start:  "2022-07-01 00:00:00"
+    date_end:    "2025-06-30 23:00:00"
+    max_workers: 24
+
+  visualise:
+    make_dicts: true
+    folder: data/SINAICA/processed
+    date_range:
+      start: "2022-07-01 00:00:00"
+      end:   "2025-06-30 23:00:00"
+    output:
+      dicts_dir: data/SINAICA/vis_dicts
+      image_dir:  visualize_sinaica_images
+    features:
+      - "PM2.5 (µg/m³)"
+      - "PM10 (µg/m³)"
+      - "NO2 (µg/m³)"
+      - "SO2 (µg/m³)"
+      - "CO (mg/m³)"
+      - "Ozone (µg/m³)"
+    pollutant_limits:
+      "PM2.5 (µg/m³)": 15
+      "PM10 (µg/m³)":  45
+      "NO2 (µg/m³)":   25
+      "SO2 (µg/m³)":   40
+      "CO (mg/m³)":    4
+      "Ozone (µg/m³)": 100
+
+  imputation:
+    dicts_dir:        data/SINAICA/vis_dicts
+    input_dir:        data/SINAICA/processed
+    output_dir:       data/SINAICA/imputed
+    max_gap_hours:    336
+    max_data_missing: 30
+    max_workers:      24
+    date_range:
+      start: "2022-07-01 00:00:00"
+      end:   "2025-06-30 23:00:00"
+    features:
+      - "PM2.5 (µg/m³)"
+      - "PM10 (µg/m³)"
+      - "NO2 (µg/m³)"
+      - "SO2 (µg/m³)"
+      - "CO (mg/m³)"
+      - "Ozone (µg/m³)"
+
+
+cnemc:
+  preprocess:
+    zip: false
+    zip_path:   data/datasets/cnemc_data.zip
+    unzip_dir:  data/datasets/cnemc_data
+    data_dir:   data/datasets/cnemc_data
+    output_dir: data/CNEMC/processed
+    start_date: "2022-07-01 00:00:00"
+    end_date:   "2025-06-30 23:00:00"
+
+  visualise:
+    make_dicts: true
+    folder: data/CNEMC/processed
+    date_range:
+      start: "2022-07-01 00:00:00"
+      end:   "2025-06-30 23:00:00"
+    output:
+      dicts_dir: data/CNEMC/vis_dicts
+      image_dir:  visualize_cnemc_images
+    features:
+      - "PM2.5 (µg/m³)"
+      - "PM10 (µg/m³)"
+      - "NO2 (µg/m³)"
+      - "SO2 (µg/m³)"
+      - "CO (mg/m³)"
+      - "Ozone (µg/m³)"
+    pollutant_limits:
+      "PM2.5 (µg/m³)": 15
+      "PM10 (µg/m³)":  45
+      "NO2 (µg/m³)":   25
+      "SO2 (µg/m³)":   40
+      "CO (mg/m³)":    4
+      "Ozone (µg/m³)": 100
+
+  imputation:
+    dicts_dir: data/CNEMC/vis_dicts
+    input_dir: data/CNEMC/processed
+    output_dir: data/CNEMC/imputed
+    max_gap_hours: 336
+    max_data_missing: 30
+    max_workers: 24
+    date_range:
+      start: "2022-07-01 00:00:00"
+      end:   "2025-06-30 23:00:00"
+    features:
+      - "PM2.5 (µg/m³)"
+      - "PM10 (µg/m³)"
+      - "NO2 (µg/m³)"
+      - "SO2 (µg/m³)"
+      - "CO (mg/m³)"
+      - "Ozone (µg/m³)"
+
+
+sources:
+  CPCB/H:
+    csv_dir: data/CPCB/sites_imputed
+    output_path: data/hf_dataset/CPCB/H
+
+  CNEMC/H:
+    csv_dir: data/CNEMC/imputed
+    output_path: data/hf_dataset/CNEMC/H
+
+  AURN/H:
+    csv_dir: data/AURN/imputed
+    output_path: data/hf_dataset/AURN/H
+
+  EPA/H:
+    csv_dir: data/EPA/imputed
+    output_path: data/hf_dataset/EPA/H
+
+  SINAICA/H:
+    csv_dir: data/SINAICA/imputed
+    output_path: data/hf_dataset/SINAICA/H
+
+  EEA_DE/H:
+    csv_dir: data/EEA/DE/imputed
+    output_path: data/hf_dataset/EEA_DE/H
+
+  EEA_FR/H:
+    csv_dir: data/EEA/FR/imputed
+    output_path: data/hf_dataset/EEA_FR/H
+
+  CNEMC_SMALL/H:
+    csv_dir: data/CNEMC/cnemc_sampled_200
+    output_path: data/hf_dataset/CNEMC_SMALL/H

@@ -116,7 +116,7 @@ var modelBadgeFormatter = function(cell) {
     
     // URL registry mapping models to their source repositories
     var repoLinks = {
-        "VisionTS++": "https://github.com/Keytoyze/VisionTS", 
+        "VisionTS++": "https://github.com/HALF111/VisionTSpp", 
         "TiRex": "https://github.com/NX-AI/tirex",
         "TimesFM-2.5": "https://github.com/google-research/timesfm",
         "TimesFM-2.0": "https://github.com/google-research/timesfm",

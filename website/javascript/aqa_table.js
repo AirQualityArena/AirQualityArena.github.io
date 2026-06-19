@@ -109,19 +109,52 @@ var overallCrpsColumnFillFormatter = function (cell, formatterParams) {
     return parseFloat(value).toFixed(4);
 };
 
+// Dynamic tier-badge generator for model classifications with embedded GitHub repository links
 var modelBadgeFormatter = function(cell) {
     var value = cell.getValue();
     var category = cell.getData().category ? cell.getData().category.trim() : "";
     
+    // URL registry mapping models to their source repositories
+    var repoLinks = {
+        "VisionTS++": "https://github.com/Keytoyze/VisionTS", 
+        "TiRex": "https://github.com/NX-AI/tirex",
+        "TimesFM-2.5": "https://github.com/google-research/timesfm",
+        "TimesFM-2.0": "https://github.com/google-research/timesfm",
+        "TimesFM-1.0": "https://github.com/google-research/timesfm",
+        "Moirai-2": "https://github.com/SalesforceAIResearch/uni2ts",
+        "Moirai-1": "https://github.com/SalesforceAIResearch/uni2ts",
+        "Chronos-2": "https://github.com/amazon-science/chronos-forecasting",
+        "Chronos-Bolt": "https://github.com/amazon-science/chronos-forecasting",
+        "Sundial": "https://github.com/thuml/Sundial",
+        "Kairos": "https://github.com/foundation-model-research/Kairos",
+        "PatchTST": "https://github.com/ibm-granite/granite-tsfm",
+        "DLinear": "https://github.com/autogluon/autogluon",
+        "DeepAR": "https://github.com/autogluon/autogluon",
+        "LightGBM": "https://github.com/lightgbm-org/LightGBM",
+        "AutoETS": "https://github.com/Nixtla/statsforecast",
+        "Seasonal Naive": "https://github.com/Nixtla/statsforecast"
+    };
+
+    // Clean up key lookups to account for small naming variances safely
+    var lookupKey = value ? value.trim() : "";
+    var targetUrl = repoLinks[lookupKey] || "#";
+
+    // Generate tier categorization badges
     var badge = "";
     if (category === "TSFM" || category === "TSFMS") {
-        badge = '<span style="background: #659bd7ff; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-right: 8px;">TSFM</span>';
+        badge = '<span style="background: #659bd7ff; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-right: 8px; font-weight: bold; display: inline-block;">TSFM</span>';
     } else if (category === "ML Baseline") {
-        badge = '<span style="background: #de8888ff; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-right: 8px;">ML/DL</span>';
+        badge = '<span style="background: #de8888ff; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-right: 8px; font-weight: bold; display: inline-block;">ML</span>';
     } else if (category === "Statistical Baseline") {
-        badge = '<span style="background: #7ac292ff; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-right: 8px;">Statistical</span>';
+        badge = '<span style="background: #7ac292ff; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-right: 8px; font-weight: bold; display: inline-block;">Stat</span>';
     }
-    return badge + value;
+
+    // Wrap model names in explicit hyperlink tracking styles
+    if (targetUrl !== "#") {
+        return badge + `<a href="${targetUrl}" target="_blank" style="color: #1e4e52; font-weight: 600; text-decoration: none; border-bottom: 1px dashed #1e4e52;" onmouseover="this.style.color='#659bd7ff'" onmouseout="this.style.color='#1e4e52'">${value}</a>`;
+    } else {
+        return badge + value; // Fallback to plain text if no URL is found
+    }
 };
 
 // 3. CORE EXECUTOR: Render tables with updated AQA data endpoints and DOM elements

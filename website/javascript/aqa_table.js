@@ -146,7 +146,7 @@ var modelBadgeFormatter = function(cell) {
     } else if (category === "ML Baseline") {
         badge = '<span style="background: #de8888ff; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-right: 8px; font-weight: bold; display: inline-block;">ML</span>';
     } else if (category === "Statistical Baseline") {
-        badge = '<span style="background: #7ac292ff; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-right: 8px; font-weight: bold; display: inline-block;">Stat</span>';
+        badge = '<span style="background: #7ac292ff; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-right: 8px; font-weight: bold; display: inline-block;">Statistical</span>';
     }
 
     // Wrap model names in explicit hyperlink tracking styles

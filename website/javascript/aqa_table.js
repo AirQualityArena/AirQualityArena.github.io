@@ -38,7 +38,8 @@ var maseColorFormatter = function (cell, formatterParams) {
     if (value === "-" || value === null || value === undefined || isNaN(value)) return value;
     
     var baseBlueGray = { r: 182, g: 206, b: 226 };
-    var min = formatterParams.min !== undefined ? formatterParams.min : 0.77;
+    // Lowered minimum boundary to accommodate AQUILA scaling properly
+    var min = formatterParams.min !== undefined ? formatterParams.min : 0.55;
     var max = formatterParams.max !== undefined ? formatterParams.max : 1.02;
     
     applyHeatmapColor(cell, value, min, max, baseBlueGray);
@@ -50,7 +51,8 @@ var crpsColorFormatter = function (cell, formatterParams) {
     if (value === "-" || value === null || value === undefined || isNaN(value)) return value;
     
     var baseBronze = { r: 232, g: 197, b: 151 };
-    var min = formatterParams.min !== undefined ? formatterParams.min : 0.43;
+    // Lowered minimum boundary to accommodate AQUILA scaling properly
+    var min = formatterParams.min !== undefined ? formatterParams.min : 0.35;
     var max = formatterParams.max !== undefined ? formatterParams.max : 1.00;
     
     applyHeatmapColor(cell, value, min, max, baseBronze);
@@ -61,7 +63,7 @@ var overallColumnFillFormatter = function (cell, formatterParams) {
     var value = cell.getValue();
     if (value === "-" || value === null || value === undefined || isNaN(value)) return value;
     
-    var min = formatterParams.min !== undefined ? formatterParams.min : 0.77;
+    var min = formatterParams.min !== undefined ? formatterParams.min : 0.55;
     var max = formatterParams.max !== undefined ? formatterParams.max : 1.02;
     
     var percent = (value - min) / (max - min);
@@ -87,7 +89,7 @@ var overallCrpsColumnFillFormatter = function (cell, formatterParams) {
     var value = cell.getValue();
     if (value === "-" || value === null || value === undefined || isNaN(value)) return value;
     
-    var min = formatterParams.min !== undefined ? formatterParams.min : 0.40;
+    var min = formatterParams.min !== undefined ? formatterParams.min : 0.35;
     var max = formatterParams.max !== undefined ? formatterParams.max : 1.00;
     
     var percent = (value - min) / (max - min);
@@ -123,32 +125,43 @@ var modelBadgeFormatter = function(cell) {
         "TimesFM-1.0": "https://github.com/google-research/timesfm",
         "Moirai-2": "https://github.com/SalesforceAIResearch/uni2ts",
         "Moirai-1": "https://github.com/SalesforceAIResearch/uni2ts",
+        "Moirai": "https://github.com/SalesforceAIResearch/uni2ts",
         "Chronos-2": "https://github.com/amazon-science/chronos-forecasting",
         "Chronos-Bolt": "https://github.com/amazon-science/chronos-forecasting",
         "Sundial": "https://github.com/thuml/Sundial",
         "Kairos": "https://github.com/foundation-model-research/Kairos",
         "PatchTST": "https://github.com/ibm-granite/granite-tsfm",
+        "TTM-r3": "https://github.com/ibm-granite/granite-tsfm",
         "DLinear": "https://github.com/autogluon/autogluon",
         "DeepAR": "https://github.com/autogluon/autogluon",
         "LightGBM": "https://github.com/lightgbm-org/LightGBM",
+        "Auto-ETS": "https://github.com/Nixtla/statsforecast",
         "AutoETS": "https://github.com/Nixtla/statsforecast",
-        "Seasonal Naive": "https://github.com/Nixtla/statsforecast"
+        "Seasonal Naive": "https://github.com/Nixtla/statsforecast",
+        "AQUILA": "#"
     };
-
-    // Clean up key lookups to account for small naming variances safely
+    
+    // Clean up key lookups to account for small naming variances safely and strip fine-tuned suffixes
     var lookupKey = value ? value.trim() : "";
+    lookupKey = lookupKey.replace(" (Global)", "").replace(" (Pollutant)", "");
     var targetUrl = repoLinks[lookupKey] || "#";
-
-    // Generate tier categorization badges
+    
+    // Generate tier categorization badges with nuanced TSFM and Domain categories
     var badge = "";
-    if (category === "TSFM" || category === "TSFMS") {
-        badge = '<span style="background: #659bd7ff; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-right: 8px; font-weight: bold; display: inline-block;">TSFM</span>';
+    if (category === "TSFM Zero-Shot") {
+        badge = '<span style="background: #659bd7ff; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-right: 8px; font-weight: bold; display: inline-block;">TSFM-ZS</span>';
+    } else if (category === "TSFM FT (Global)") {
+        badge = '<span style="background: #4a7ab5ff; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-right: 8px; font-weight: bold; display: inline-block;">TSFM-FT(G)</span>';
+    } else if (category === "TSFM FT (Pollutant)") {
+        badge = '<span style="background: #2b558aff; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-right: 8px; font-weight: bold; display: inline-block;">TSFM-FT(P)</span>';
+    } else if (category === "Domain-Specific") {
+        badge = '<span style="background: #9b59b6; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-right: 8px; font-weight: bold; display: inline-block;">DOMAIN</span>';
     } else if (category === "ML Baseline") {
         badge = '<span style="background: #de8888ff; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-right: 8px; font-weight: bold; display: inline-block;">ML</span>';
     } else if (category === "Statistical Baseline") {
-        badge = '<span style="background: #7ac292ff; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-right: 8px; font-weight: bold; display: inline-block;">Statistical</span>';
+        badge = '<span style="background: #7ac292ff; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-right: 8px; font-weight: bold; display: inline-block;">Stat</span>';
     }
-
+    
     // Wrap model names in explicit hyperlink tracking styles
     if (targetUrl !== "#") {
         return badge + `<a href="${targetUrl}" target="_blank" style="color: #1e4e52; font-weight: 600; text-decoration: none; border-bottom: 1px dashed #1e4e52;" onmouseover="this.style.color='#659bd7ff'" onmouseout="this.style.color='#1e4e52'">${value}</a>`;
@@ -159,7 +172,6 @@ var modelBadgeFormatter = function(cell) {
 
 // 3. CORE EXECUTOR: Render tables with updated AQA data endpoints and DOM elements
 document.addEventListener('DOMContentLoaded', function() {
-
     // --- 0. MAIN LEADERBOARD ---
     fetch('website/data/aqa_main_results.csv')
         .then(response => response.text())
@@ -174,8 +186,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 initialSort: [{ column: "mase_overall", dir: "asc" }],
                 columns: [
                     { title: "Model", field: "model", frozen: true, width: 250, headerSort: true, formatter: modelBadgeFormatter },
-                    { title: "MASE (norm.)", field: "mase_overall", width: 140, hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.77, max: 1.02 } },
-                    { title: "CRPS (norm.)", field: "crps_overall", width: 140, hozAlign: "center", headerHozAlign: "center", formatter: crpsColorFormatter, formatterParams: { min: 0.43, max: 1.00 } }
+                    { title: "MASE (norm.)", field: "mase_overall", width: 140, hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.55, max: 1.02 } },
+                    { title: "CRPS (norm.)", field: "crps_overall", width: 140, hozAlign: "center", headerHozAlign: "center", formatter: crpsColorFormatter, formatterParams: { min: 0.35, max: 1.00 } }
                 ]
             });
         }).catch(err => console.error('Error fetching main leaderboard:', err));
@@ -198,13 +210,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     { title: "Model", field: "model", frozen: true, width: 200, formatter: modelBadgeFormatter },
                     
                     // Use growth parameters to let the data columns scale smoothly and evenly
-                    { title: "AURN (UK)", field: "AURN", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 }, minWidth: 90, growth: 1 },
-                    { title: "CNEMC (China)", field: "CNEMC", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 }, minWidth: 110, growth: 1 },
-                    { title: "CPCB (India)", field: "CPCB", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 }, minWidth: 100, growth: 1 },
-                    { title: "EEA_DE (Germany)", field: "EEA_DE", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 }, minWidth: 120, growth: 1 },
-                    { title: "EEA_FR (France)", field: "EEA_FR", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 }, minWidth: 110, growth: 1 },
-                    { title: "EPA (USA)", field: "EPA", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 }, minWidth: 95, growth: 1 },
-                    { title: "SINAICA (Mexico)", field: "SINAICA", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 }, minWidth: 120, growth: 1 },
+                    { title: "AURN (UK)", field: "AURN", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.55, max: 1.35 }, minWidth: 90, growth: 1 },
+                    { title: "CNEMC (China)", field: "CNEMC", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.55, max: 1.35 }, minWidth: 110, growth: 1 },
+                    { title: "CPCB (India)", field: "CPCB", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.55, max: 1.35 }, minWidth: 100, growth: 1 },
+                    { title: "EEA_DE (Germany)", field: "EEA_DE", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.55, max: 1.35 }, minWidth: 120, growth: 1 },
+                    { title: "EEA_FR (France)", field: "EEA_FR", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.55, max: 1.35 }, minWidth: 110, growth: 1 },
+                    { title: "EPA (USA)", field: "EPA", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.55, max: 1.35 }, minWidth: 95, growth: 1 },
+                    { title: "SINAICA (Mexico)", field: "SINAICA", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.55, max: 1.35 }, minWidth: 120, growth: 1 },
                     { 
                         title: "Overall", 
                         field: "overall_mase", 
@@ -224,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             return count > 0 ? (total / count) : "-";
                         },
                         formatter: overallColumnFillFormatter, 
-                        formatterParams: { min: 0.77, max: 1.02 }
+                        formatterParams: { min: 0.55, max: 1.02 }
                     }
                 ]
             });
@@ -245,12 +257,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 initialSort: [{ column: "overall_mase", dir: "asc" }],
                 columns: [
                     { title: "Model", field: "model", frozen: true, width: 220, formatter: modelBadgeFormatter },
-                    { title: "CO", field: "CO", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 } },
-                    { title: "NO2", field: "NO2", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 } },
-                    { title: "Ozone", field: "Ozone", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 } },
-                    { title: "PM10", field: "PM10", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 } },
-                    { title: "PM2.5", field: "PM2_5", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 } }, 
-                    { title: "SO2", field: "SO2", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.75, max: 1.35 } },
+                    { title: "CO", field: "CO", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.55, max: 1.35 } },
+                    { title: "NO2", field: "NO2", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.55, max: 1.35 } },
+                    { title: "Ozone", field: "Ozone", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.55, max: 1.35 } },
+                    { title: "PM10", field: "PM10", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.55, max: 1.35 } },
+                    { title: "PM2.5", field: "PM2_5", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.55, max: 1.35 } }, 
+                    { title: "SO2", field: "SO2", hozAlign: "center", headerHozAlign: "center", formatter: maseColorFormatter, formatterParams: { min: 0.55, max: 1.35 } },
                     { 
                         title: "Overall", 
                         field: "overall_mase", 
@@ -270,7 +282,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             return count > 0 ? (total / count) : "-";
                         },
                         formatter: overallColumnFillFormatter, 
-                        formatterParams: { min: 0.77, max: 1.02 }
+                        formatterParams: { min: 0.55, max: 1.02 }
                     }
                 ]
             });
@@ -317,7 +329,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             return count > 0 ? (total / count) : "-";
                         },
                         formatter: overallCrpsColumnFillFormatter, 
-                        formatterParams: { min: 0.40, max: 1.00 } 
+                        formatterParams: { min: 0.35, max: 1.00 } 
                     }
                 ]
             });
@@ -348,7 +360,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         title: "Overall", 
                         field: "overall_crps", 
                         hozAlign: "left", 
-                        headerHozAlign: "center",    
+                        headerHozAlign: "center",   
                         cssClass: "avg-column",
                         width: 110,
                         mutator: function(value, data) {
@@ -363,7 +375,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             return count > 0 ? (total / count) : "-";
                         },
                         formatter: overallCrpsColumnFillFormatter, 
-                        formatterParams: { min: 0.40, max: 1.00 }
+                        formatterParams: { min: 0.35, max: 1.00 }
                     }
                 ]
             });

@@ -1,18 +1,28 @@
 model,category,mase_overall,crps_overall
-VisionTS++,TSFM,0.7785,0.4537
-TiRex,TSFM,0.7825,0.4553
-TimesFM-2.5,TSFM,0.7831,0.4385
-Moirai-2,TSFM,0.7916,0.4421
-Chronos-2,TSFM,0.7929,0.4654
-Chronos-Bolt,TSFM,0.7976,0.4999
-Sundial,TSFM,0.7977,0.5728
-TimesFM-2.0,TSFM,0.8013,0.4807
-Moirai-1,TSFM,0.8103,0.4670
-TimesFM-1.0,TSFM,0.8298,0.5133
-Kairos,TSFM,1.0121,0.6426
-PatchTST,ML Baseline,0.8300,0.4625
-AutoETS,Statistical Baseline,0.8949,0.7878
-DLinear,ML Baseline,0.8999,0.5652
-DeepAR,ML Baseline,0.9091,0.4911
-LightGBM,ML Baseline,0.9268,0.5765
 Seasonal Naive,Statistical Baseline,1.0000,1.0000
+PatchTST,ML Baseline,0.8053,0.6287
+DLinear,ML Baseline,0.8387,0.7010
+DeepAR,ML Baseline,0.8540,0.6601
+LightGBM,ML Baseline,0.8680,0.7049
+Auto-ETS,Statistical Baseline,0.8906,0.8256
+VisionTS++,TSFM Zero-Shot,0.7771,0.6157
+TiRex,TSFM Zero-Shot,0.7790,0.6201
+TimesFM-2.5,TSFM Zero-Shot,0.7821,0.6104
+Chronos-2,TSFM Zero-Shot,0.7890,0.6281
+Moirai-2,TSFM Zero-Shot,0.7903,0.6147
+Chronos-Bolt,TSFM Zero-Shot,0.7937,0.6389
+Sundial,TSFM Zero-Shot,0.7954,0.7103
+TimesFM-2.0,TSFM Zero-Shot,0.8010,0.6393
+Moirai,TSFM Zero-Shot,0.8080,0.6423
+TTM-r3,TSFM Zero-Shot,0.8117,0.6616
+TimesFM-1.0,TSFM Zero-Shot,0.8253,0.6676
+Kairos,TSFM Zero-Shot,0.9929,0.8183
+Chronos-2 (Global),TSFM FT (Global),0.7571,0.6034
+Moirai-2 (Global),TSFM FT (Global),0.7600,0.5994
+TTM-r3 (Global),TSFM FT (Global),0.7730,0.6309
+TimesFM-2.5 (Global),TSFM FT (Global),0.7810,0.6629
+Chronos-2 (Pollutant),TSFM FT (Pollutant),0.7536,0.5931
+Moirai-2 (Pollutant),TSFM FT (Pollutant),0.7557,0.5944
+TTM-r3 (Pollutant),TSFM FT (Pollutant),0.7671,0.6244
+TimesFM-2.5 (Pollutant),TSFM FT (Pollutant),0.7774,0.6610
+AQUILA,Domain-Specific,0.6226,0.4249

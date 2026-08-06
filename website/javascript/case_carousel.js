@@ -4,42 +4,52 @@ document.addEventListener('DOMContentLoaded', function() {
     // Array holding the metadata and paths for your evaluation plots
     const evaluationPlots = [
         { 
-            name: "AQA-Data: AURN Error Distribution (MASE Grid)", 
+            name: "AQA-Bench: AURN Error Distribution (MASE Grid)", 
             file: "aurn_error_mase",
             ext: "png"  
         },
         { 
-            name: "AQA-Data: AURN Error Distribution Boxplot Breakdown", 
+            name: "AQA-Bench: AURN Error Distribution Boxplot Breakdown", 
             file: "aurn_error_mase_box",
             ext: "png"
         },
         { 
-            name: "AQA-Bench: CPCB CO Imputation Analysis Heatmap", 
+            name: "AQA-Bench: Distribution for MASE across models", 
+            file: "box_all_allpol 11",
+            ext: "jpg"
+        },
+        { 
+            name: "AQA-Data: Illustration of missing-data structure and MSTL-based imputation", 
+            file: "EPA_45_79_1001_Ozone_imputation",
+            ext: "jpg"
+        },
+        { 
+            name: "AQA-Data: CPCB CO Imputation Analysis Heatmap", 
             file: "Heatmap_CPCB_CO",
             ext: "jpg"
         },
         { 
-            name: "AQA-Bench: CPCB NO2 Imputation Analysis Heatmap", 
+            name: "AQA-Data: CPCB NO2 Imputation Analysis Heatmap", 
             file: "Heatmap_CPCB_NO2",
             ext: "jpg"
         },
         { 
-            name: "AQA-Bench: CPCB Ozone Imputation Analysis Heatmap", 
+            name: "AQA-Data: CPCB Ozone Imputation Analysis Heatmap", 
             file: "Heatmap_CPCB_Ozone",
             ext: "jpg"
         },
         { 
-            name: "AQA-Bench: CPCB PM2.5 Imputation Analysis Heatmap", 
+            name: "AQA-Data: CPCB PM2.5 Imputation Analysis Heatmap", 
             file: "Heatmap_CPCB_PM2.5",
             ext: "jpg"
         },
         { 
-            name: "AQA-Bench: CPCB PM10 Imputation Analysis Heatmap", 
+            name: "AQA-Data: CPCB PM10 Imputation Analysis Heatmap", 
             file: "Heatmap_CPCB_PM10",
             ext: "jpg"
         },
         { 
-            name: "AQA-Bench: CPCB SO2 Imputation Analysis Heatmap", 
+            name: "AQA-Data: CPCB SO2 Imputation Analysis Heatmap", 
             file: "Heatmap_CPCB_SO2",
             ext: "jpg"
         }
@@ -54,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
         //     ext: "png"
         // },
         // { 
-        //     name: "AQA-Data: AURN Mean MASE Intersection Matrix", 
+        //     name: "AQA-Bench: AURN Mean MASE Intersection Matrix", 
         //     file: "aurn_mean_mase_pollutant_dataset",
         //     ext: "png"
         // }

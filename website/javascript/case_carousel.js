@@ -14,9 +14,34 @@ document.addEventListener('DOMContentLoaded', function() {
             ext: "png"
         },
         { 
+            name: "AQA-Bench: CPCB CO Imputation Analysis Heatmap", 
+            file: "Heatmap_CPCB_CO",
+            ext: "jpg"
+        },
+        { 
+            name: "AQA-Bench: CPCB NO2 Imputation Analysis Heatmap", 
+            file: "Heatmap_CPCB_NO2",
+            ext: "jpg"
+        },
+        { 
+            name: "AQA-Bench: CPCB Ozone Imputation Analysis Heatmap", 
+            file: "Heatmap_CPCB_Ozone",
+            ext: "jpg"
+        },
+        { 
             name: "AQA-Bench: CPCB PM2.5 Imputation Analysis Heatmap", 
-            file: "cpcb_pm_heatmap",
-            ext: "jpeg"
+            file: "Heatmap_CPCB_PM2.5",
+            ext: "jpg"
+        },
+        { 
+            name: "AQA-Bench: CPCB PM10 Imputation Analysis Heatmap", 
+            file: "Heatmap_CPCB_PM10",
+            ext: "jpg"
+        },
+        { 
+            name: "AQA-Bench: CPCB SO2 Imputation Analysis Heatmap", 
+            file: "Heatmap_CPCB_SO2",
+            ext: "jpg"
         }
         // { 
         //     name: "AQA-Bench: Normalized MASE Performance across Datasets", 

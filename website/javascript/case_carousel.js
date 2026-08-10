@@ -52,6 +52,36 @@ document.addEventListener('DOMContentLoaded', function() {
             name: "AQA-Data: CPCB SO2 Imputation Analysis Heatmap", 
             file: "Heatmap_CPCB_SO2",
             ext: "jpg"
+        },
+        { 
+            name: "AQA-Bench: CO Geographical distribution of per-site MASE across all seven evaluation networks", 
+            file: "MASE_Map_CO",
+            ext: "jpg"
+        },
+        { 
+            name: "AQA-Bench: NO2 Geographical distribution of per-site MASE across all seven evaluation networks", 
+            file: "MASE_Map_NO2",
+            ext: "jpg"
+        },
+        { 
+            name: "AQA-Bench: Ozone Geographical distribution of per-site MASE across all seven evaluation networks", 
+            file: "MASE_Map_O3",
+            ext: "jpg"
+        },
+        { 
+            name: "AQA-Bench: PM2.5 Geographical distribution of per-site MASE across all seven evaluation networks", 
+            file: "MASE_Map_PM2.5",
+            ext: "jpg"
+        },
+        { 
+            name: "AQA-Bench: PM10 Geographical distribution of per-site MASE across all seven evaluation networks", 
+            file: "MASE_Map_PM10",
+            ext: "jpg"
+        },
+        { 
+            name: "AQA-Bench: SO2 Geographical distribution of per-site MASE across all seven evaluation networks", 
+            file: "MASE_Map_SO2",
+            ext: "jpg"
         }
         // { 
         //     name: "AQA-Bench: Normalized MASE Performance across Datasets", 
@@ -64,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
         //     ext: "png"
         // },
         // { 
-        //     name: "AQA-Bench: AURN Mean MASE Intersection Matrix", 
+        //     name: "AQA-Data: AURN Mean MASE Intersection Matrix", 
         //     file: "aurn_mean_mase_pollutant_dataset",
         //     ext: "png"
         // }

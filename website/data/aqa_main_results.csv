@@ -25,3 +25,6 @@ Chronos-2 (Pollutant),TSFM FT (Pollutant),0.7536,0.5931
 Moirai-2 (Pollutant),TSFM FT (Pollutant),0.7557,0.5944
 TTM-r3 (Pollutant),TSFM FT (Pollutant),0.7671,0.6244
 TimesFM-2.5 (Pollutant),TSFM FT (Pollutant),0.7774,0.6610
+PatchTST,Domain-Specific,0.7740,0.6210
+TTM-r3,Domain-Specific,0.7650,0.6220
+AQUILA,Domain-Specific,0.7700,0.6180

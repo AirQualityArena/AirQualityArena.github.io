@@ -25,3 +25,6 @@ Chronos-2 (Pollutant),TSFM FT (Pollutant),.734,.746,.775,.744,.737,.752,.787
 Moirai-2 (Pollutant),TSFM FT (Pollutant),.732,.745,.778,.743,.735,.770,.787
 TTM-r3 (Pollutant),TSFM FT (Pollutant),.738,.754,.799,.750,.743,.788,.798
 TimesFM-2.5 (Pollutant),TSFM FT (Pollutant),.757,.767,.800,.765,.760,.782,.811
+PatchTST,Domain-Specific,.743,.764,.809,.754,.747,.800,.803
+TTM-r3,Domain-Specific,.740,.758,.799,.750,.742,.768,.795
+AQUILA,Domain-Specific,.746,.765,.804,.759,.748,.768,.800

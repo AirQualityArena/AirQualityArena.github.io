@@ -1,0 +1,30 @@
+model,category,PM2_5,PM10,NO2,CO,SO2,Ozone
+Seasonal Naive,Statistical Baseline,1.000,1.000,1.000,1.000,1.000,1.000
+PatchTST,ML Baseline,.651,.650,.702,.664,.388,.773
+DeepAR,ML Baseline,.697,.678,.704,.717,.369,.871
+DLinear,ML Baseline,.689,.688,.740,.742,.557,.801
+LightGBM,ML Baseline,.739,.708,.752,.751,.490,.832
+Auto-ETS,Statistical Baseline,.796,.816,.845,.829,.795,.875
+TimesFM-2.5,TSFM Zero-Shot,.623,.645,.673,.635,.397,.740
+Moirai-2,TSFM Zero-Shot,.622,.647,.677,.638,.403,.753
+VisionTS++,TSFM Zero-Shot,.624,.646,.669,.634,.431,.731
+TiRex,TSFM Zero-Shot,.634,.656,.684,.643,.418,.730
+Chronos-2,TSFM Zero-Shot,.645,.659,.682,.647,.436,.738
+Chronos-Bolt,TSFM Zero-Shot,.651,.670,.687,.686,.438,.742
+TimesFM-2.0,TSFM Zero-Shot,.657,.666,.684,.664,.446,.761
+Moirai,TSFM Zero-Shot,.653,.674,.704,.671,.425,.777
+TTM-r3,TSFM Zero-Shot,.668,.681,.709,.683,.472,.796
+TimesFM-1.0,TSFM Zero-Shot,.693,.683,.714,.692,.461,.811
+Sundial,TSFM Zero-Shot,.727,.734,.766,.716,.534,.815
+Kairos,TSFM Zero-Shot,.795,.780,.915,.842,.534,1.149
+Moirai-2 (Global),TSFM FT (Global),.611,.631,.651,.618,.415,.706
+Chronos-2 (Global),TSFM FT (Global),.624,.633,.654,.616,.421,.709
+TTM-r3 (Global),TSFM FT (Global),.632,.645,.670,.654,.479,.730
+TimesFM-2.5 (Global),TSFM FT (Global),.655,.674,.701,.673,.551,.738
+Chronos-2 (Pollutant),TSFM FT (Pollutant),.608,.628,.646,.612,.395,.714
+Moirai-2 (Pollutant),TSFM FT (Pollutant),.605,.629,.648,.614,.404,.707
+TTM-r3 (Pollutant),TSFM FT (Pollutant),.631,.645,.668,.655,.453,.725
+TimesFM-2.5 (Pollutant),TSFM FT (Pollutant),.651,.674,.694,.667,.543,.752
+PatchTST,Domain-Specific,.627,.640,.659,.637,.477,.715,.621
+TTM-r3,Domain-Specific,.633,.643,.664,.637,.467,.724
+AQUILA,Domain-Specific,.630,.645,.663,.635,.452,.721
